@@ -1,29 +1,152 @@
-<h1>Vitrine de Pets para Adoção</h1>
+<div class="w-full space-y-8 pb-12">
+  <!-- Header -->
+  <header class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-gray-200 pb-6">
+    <div>
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight flex items-center gap-2">
+        <span>🐾 Resgate e Adote</span>
+      </h1>
+      <p class="text-gray-600 text-sm mt-1">Encontre seu novo amigo de quatro patas e transforme uma vida.</p>
+    </div>
+    <div>
+      <%= link_to admin_animals_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>Painel Administrativo</span>
+      <% end %>
+    </div>
+  </header>
 
-<div>
-  <strong>Filtrar por espécie:</strong>
-  <%= link_to "Todos", animals_path %> |
-  <%= link_to "Gatos", animals_path(species: "cat") %> |
-  <%= link_to "Cachorros", animals_path(species: "dog") %>
-</div>
+  <!-- Filtros rápidos -->
+  <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div class="flex items-center space-x-2 bg-gray-100 p-1.5 rounded-xl border border-gray-200">
+      <% current_species = params[:species] %>
 
-<div class="animals-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
-  <% @animals.each do |animal| %>
-    <div class="animal-card" style="border: 1px solid #ccc; padding: 15px; border-radius: 8px;">
-      <div class="animal-photo">
-        <% if animal.photos.attached? %>
-          <%= image_tag animal.photos.first, style: "width: 100%; height: 200px; object-fit: cover; border-radius: 4px;" %>
-        <% else %>
-          <div style="width: 100%; height: 200px; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px;">Sem foto</div>
-        <% end %>
+      <%= link_to animals_path, class: "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 #{current_species.blank? ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'}" do %>
+        Todos
+      <% end %>
+
+      <%= link_to animals_path(species: "cat"), class: "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 #{current_species == 'cat' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'}" do %>
+        🐱 Gatos
+      <% end %>
+
+      <%= link_to animals_path(species: "dog"), class: "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 #{current_species == 'dog' ? 'bg-white text-indigo-600 shadow-sm' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-200/50'}" do %>
+        🐶 Cachorros
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Content / Grid de Animais -->
+  <% if @animals.any? %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @animals.each do |animal| %>
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden group">
+          <!-- Photo & Badge -->
+          <div class="relative w-full h-52 bg-gray-100 overflow-hidden">
+            <% if animal.photos.attached? %>
+              <%= image_tag animal.photos.first, class: "w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" %>
+            <% else %>
+              <div class="w-full h-full flex flex-col items-center justify-center text-gray-400 bg-gray-50">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-1 stroke-current" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-xs font-medium">Sem foto</span>
+              </div>
+            <% end %>
+
+            <!-- Espécie Badge -->
+            <div class="absolute top-3 right-3">
+              <% if animal.cat? %>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-800 backdrop-blur-md">
+                  🐱 Gato
+                </span>
+              <% elsif animal.dog? %>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 backdrop-blur-md">
+                  🐶 Cachorro
+                </span>
+              <% else %>
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800 backdrop-blur-md">
+                  <%= animal.species&.titleize %>
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <h3 class="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                  <%= link_to animal.name, animal_path(animal) %>
+                </h3>
+              </div>
+
+              <!-- Location -->
+              <p class="text-sm text-gray-500 flex items-center gap-1 mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span><%= "#{animal.city}/#{animal.state}" %></span>
+              </p>
+
+              <!-- Tags / Attributes Grid -->
+              <div class="grid grid-cols-3 gap-2 text-center text-xs mb-5">
+                <div class="bg-gray-50 p-2 rounded-lg border border-gray-100">
+                  <span class="block text-gray-400 text-[10px] uppercase font-semibold">Idade</span>
+                  <span class="font-medium text-gray-700"><%= animal.age %></span>
+                </div>
+                <div class="bg-gray-50 p-2 rounded-lg border border-gray-100">
+                  <span class="block text-gray-400 text-[10px] uppercase font-semibold">Sexo</span>
+                  <span class="font-medium text-gray-700">
+                    <%= animal.male? ? "Macho" : (animal.female? ? "Fêmea" : animal.sex&.titleize) %>
+                  </span>
+                </div>
+                <div class="bg-gray-50 p-2 rounded-lg border border-gray-100">
+                  <span class="block text-gray-400 text-[10px] uppercase font-semibold">Porte</span>
+                  <span class="font-medium text-gray-700">
+                    <% case animal.size %>
+                    <% when "small" %>
+                      Pequeno
+                    <% when "medium" %>
+                      Médio
+                    <% when "large" %>
+                      Grande
+                    <% else %>
+                      <%= animal.size&.titleize %>
+                    <% end %>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div>
+              <%= link_to animal_path(animal), class: "w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold text-sm rounded-xl transition-colors duration-150" do %>
+                <span>Ver Detalhes</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- Estado Vazio -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-12 text-center max-w-lg mx-auto my-8 shadow-sm">
+      <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+        🐾
       </div>
-      <h3><%= link_to animal.name, animal_path(animal) %></h3>
-      <p><strong>Idade:</strong> <%= animal.age %></p>
-      <p><strong>Sexo:</strong> <%= animal.sex == "male" ? "Macho" : "Fêmea" %></p>
-      <p><strong>Cidade:</strong> <%= "#{animal.city}/#{animal.state}" %></p>
-      <div>
-        <%= link_to "Ver Detalhes", animal_path(animal), class: "btn" %>
-      </div>
+      <h3 class="text-lg font-bold text-gray-900 mb-1">Nenhum pet encontrado</h3>
+      <p class="text-sm text-gray-500 mb-6">
+        Não encontramos nenhum animal cadastrado no momento para o filtro selecionado.
+      </p>
+      <%= link_to animals_path, class: "inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg transition-colors" do %>
+        <span>Limpar filtros</span>
+      <% end %>
     </div>
   <% end %>
 </div>
