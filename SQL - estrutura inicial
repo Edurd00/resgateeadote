@@ -1,0 +1,42 @@
+-- Habilitar extensão para UUIDs (opcional, mas recomendado para segurança em URLs)
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- 1. Tabela de Usuários (Resgatistas / Administradores)
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_digest VARCHAR(255) NOT NULL,
+    phone VARCHAR(50) NOT NULL, -- Essencial para o botão de contato via WhatsApp
+    role INTEGER NOT NULL DEFAULT 0, -- 0 = Resgatista, 1 = Administrador
+    created_at TIMESTAMP(6) NOT NULL,
+    updated_at TIMESTAMP(6) NOT NULL
+);
+
+-- Índice para busca rápida por email na autenticação
+CREATE UNIQUE INDEX index_users_on_email ON users(email);
+
+-- 2. Tabela de Animais (Pets para Adoção)
+CREATE TABLE animals (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    species INTEGER NOT NULL, -- 0 = Gato, 1 = Cachorro
+    age VARCHAR(50) NOT NULL, -- Ex: "4 meses", "2 anos"
+    sex INTEGER NOT NULL, -- 0 = Macho, 1 = Fêmea
+    size INTEGER NOT NULL, -- 0 = Pequeno, 1 = Médio, 2 = Grande
+    temperament TEXT,
+    health_status TEXT, -- Vacinado, castrado, vermifugado, etc.
+    status INTEGER NOT NULL DEFAULT 0, -- 0 = Disponível, 1 = Em processo, 2 = Adotado
+    description TEXT NOT NULL, -- História do resgate e detalhes do pet
+    city VARCHAR(100) NOT NULL,
+    state VARCHAR(2) NOT NULL, -- Ex: "SP", "RJ"
+    user_id INTEGER NOT NULL,
+    created_at TIMESTAMP(6) NOT NULL,
+    updated_at TIMESTAMP(6) NOT NULL,
+    CONSTRAINT fk_rails_animals_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Índices para otimizar os filtros de busca na vitrine pública
+CREATE INDEX index_animals_on_user_id ON animals(user_id);
+CREATE INDEX index_animals_on_species ON animals(species);
+CREATE INDEX index_animals_on_status ON animals(status);
