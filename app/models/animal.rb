@@ -8,6 +8,8 @@ class Animal < ApplicationRecord
   enum size: { small: 0, medium: 1, large: 2 }
   enum status: { available: 0, in_process: 1, adopted: 2 }
 
+  scope :published, -> { available }
+
   validate :acceptable_photos
 
   private

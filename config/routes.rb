@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   delete '/logout', to: 'sessions#destroy'
 
+  resources :animals, only: [:index, :show]
+
   namespace :admin do
     resources :animals
   end
 
-  root to: "admin/animals#index"
+  root to: "animals#index"
 end

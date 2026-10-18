@@ -1,0 +1,51 @@
+<div class="animal-details">
+  <h1><%= @animal.name %></h1>
+
+  <div class="gallery" style="display: flex; gap: 10px; overflow-x: auto; margin-bottom: 20px;">
+    <% if @animal.photos.attached? %>
+      <% @animal.photos.each do |photo| %>
+        <%= image_tag photo, style: "height: 250px; object-fit: cover; border-radius: 8px;" %>
+      <% end %>
+    <% else %>
+      <div style="width: 100%; height: 200px; background: #eee; display: flex; align-items: center; justify-content: center;">Sem fotos disponíveis</div>
+    <% end %>
+  </div>
+
+  <div class="info">
+    <p><strong>Espécie:</strong> <%= @animal.cat? ? "Gato" : "Cachorro" %></p>
+    <p><strong>Idade:</strong> <%= @animal.age %></p>
+    <p><strong>Sexo:</strong> <%= @animal.male? ? "Macho" : "Fêmea" %></p>
+    <p><strong>Porte:</strong> <%= @animal.small? ? "Pequeno" : (@animal.medium? ? "Médio" : "Grande") %></p>
+    <p><strong>Localização:</strong> <%= "#{@animal.city}/#{@animal.state}" %></p>
+
+    <h3>Histórico</h3>
+    <p><%= @animal.description %></p>
+
+    <% if @animal.temperament.present? %>
+      <h3>Temperamento</h3>
+      <p><%= @animal.temperament %></p>
+    <% end %>
+
+    <% if @animal.health_status.present? %>
+      <h3>Informações de Saúde</h3>
+      <p><%= @animal.health_status %></p>
+    <% end %>
+  </div>
+
+  <% if @animal.user&.phone.present? %>
+    <%
+      phone_number = @animal.user.phone.gsub(/\D/, '')
+      whatsapp_message = "Olá! Vi o(a) #{@animal.name} no Resgate e Adote e tenho interesse na adoção."
+      whatsapp_url = "https://wa.me/#{phone_number}?text=#{ERB::Util.url_encode(whatsapp_message)}"
+    %>
+    <div style="margin-top: 30px;">
+      <%= link_to whatsapp_url, target: "_blank", class: "btn-whatsapp", style: "background-color: #25D366; color: white; padding: 12px 20px; font-weight: bold; text-decoration: none; border-radius: 5px; display: inline-block;" do %>
+        Quero Adotar via WhatsApp
+      <% end %>
+    </div>
+  <% end %>
+
+  <div style="margin-top: 20px;">
+    <%= link_to "Voltar para a Vitrine", animals_path %>
+  </div>
+</div>
