@@ -1,5 +1,12 @@
 class Animal < ApplicationRecord
+  belongs_to :user, optional: true
+
   has_many_attached :photos
+
+  enum species: { cat: 0, dog: 1 }
+  enum sex: { male: 0, female: 1 }
+  enum size: { small: 0, medium: 1, large: 2 }
+  enum status: { available: 0, in_process: 1, adopted: 2 }
 
   validate :acceptable_photos
 

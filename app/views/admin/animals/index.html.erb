@@ -1,0 +1,49 @@
+<h1>Painel de Gerenciamento de Animais</h1>
+
+<%= link_to "Novo Pet", new_admin_animal_path, class: "btn btn-primary" %>
+
+<% if flash[:notice] %>
+  <div class="alert alert-success"><%= flash[:notice] %></div>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Foto Principal</th>
+      <th>Nome</th>
+      <th>Espécie</th>
+      <th>Status</th>
+      <th>Cidade/UF</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @animals.each do |animal| %>
+      <tr>
+        <td>
+          <% if animal.photos.attached? %>
+            <%= image_tag animal.photos.first, width: 80, height: 80 %>
+          <% else %>
+            Sem foto
+          <% end %>
+        </td>
+        <td><%= animal.name %></td>
+        <td><%= animal.species_i18n rescue animal.species&.titleize %></td>
+        <td>
+          <% status_label = case animal.status
+             when "available" then "Disponível"
+             when "in_process" then "Em processo"
+             when "adopted" then "Adotado"
+             else animal.status
+             end %>
+          <%= status_label %>
+        </td>
+        <td><%= "#{animal.city}/#{animal.state}" %></td>
+        <td>
+          <%= link_to "Editar", edit_admin_animal_path(animal) %> |
+          <%= link_to "Remover", admin_animal_path(animal), data: { turbo_method: :delete, confirm: "Tem certeza?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

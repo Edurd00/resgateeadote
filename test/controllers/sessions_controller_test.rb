@@ -16,14 +16,14 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should login with valid credentials" do
     post login_url, params: { email: @user.email, password: "password123" }
-    assert_redirected_to login_url
+    assert_redirected_to root_url
     assert_equal @user.id, session[:user_id]
     assert_equal "Login realizado com sucesso!", flash[:notice]
   end
 
   test "should not login with invalid credentials" do
     post login_url, params: { email: @user.email, password: "wrongpassword" }
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_nil session[:user_id]
     assert_equal "E-mail ou senha inválidos.", flash[:alert]
   end

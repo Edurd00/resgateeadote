@@ -7,28 +7,37 @@ Puma starting in single mode...
 *  Min threads: 5
 *  Max threads: 5
 *  Environment: development
-*          PID: 92052
+*          PID: 162405
 * Listening on http://127.0.0.1:3000
 * Listening on http://[::1]:3000
 Use Ctrl-C to stop
-Started GET "/login" for ::1 at 2026-10-18 19:05:38 +0000
+Started GET "/login" for ::1 at 2026-10-18 19:24:49 +0000
   [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
 Processing by SessionsController#new as HTML
   Rendering layout layouts/application.html.erb
   Rendering sessions/new.html.erb within layouts/application
-  Rendered sessions/new.html.erb within layouts/application (Duration: 10.0ms | Allocations: 3372)
-  Rendered layout layouts/application.html.erb (Duration: 425.7ms | Allocations: 77887)
-Completed 200 OK in 442ms (Views: 430.8ms | ActiveRecord: 0.0ms | Allocations: 82041)
+  Rendered sessions/new.html.erb within layouts/application (Duration: 10.8ms | Allocations: 3371)
+  Rendered layout layouts/application.html.erb (Duration: 89.7ms | Allocations: 22035)
+Completed 200 OK in 102ms (Views: 94.4ms | ActiveRecord: 0.0ms | Allocations: 26107)
 
 
-Started POST "/login" for ::1 at 2026-10-18 19:05:41 +0000
+Started POST "/login" for ::1 at 2026-10-18 19:24:51 +0000
 Processing by SessionsController#create as HTML
-  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"user@example.com", "password"=>"[FILTERED]", "commit"=>"Entrar"}
-  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "user@example.com"], ["LIMIT", 1]]
+  Parameters: {"authenticity_token"=>"[FILTERED]", "email"=>"admin@example.com", "password"=>"[FILTERED]", "commit"=>"Entrar"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = ? LIMIT ?[0m  [["email", "admin@example.com"], ["LIMIT", 1]]
   ↳ app/controllers/sessions_controller.rb:6:in `create'
-/var/lib/gems/3.2.0/gems/actionpack-7.1.6/lib/action_controller/metal/rendering.rb:207: warning: Status code :unprocessable_entity is deprecated and will be removed in a future version of Rack. Please use :unprocessable_content instead.
+Redirected to http://localhost:3000/
+Completed 302 Found in 494ms (ActiveRecord: 4.0ms | Allocations: 18131)
+
+
+Started GET "/" for ::1 at 2026-10-18 19:24:51 +0000
+Processing by Admin::AnimalsController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:5:in `current_user'
   Rendering layout layouts/application.html.erb
-  Rendering sessions/new.html.erb within layouts/application
-  Rendered sessions/new.html.erb within layouts/application (Duration: 2.5ms | Allocations: 1962)
-  Rendered layout layouts/application.html.erb (Duration: 4.4ms | Allocations: 2850)
-Completed 422 Unprocessable Content in 43ms (Views: 5.2ms | ActiveRecord: 2.9ms | Allocations: 13453)
+  Rendering admin/animals/index.html.erb within layouts/application
+  [1m[36mAnimal Load (0.3ms)[0m  [1m[34mSELECT "animals".* FROM "animals"[0m
+  ↳ app/views/admin/animals/index.html.erb:21
+  Rendered admin/animals/index.html.erb within layouts/application (Duration: 4.9ms | Allocations: 1039)
+  Rendered layout layouts/application.html.erb (Duration: 8.9ms | Allocations: 1961)
+Completed 200 OK in 93ms (Views: 10.2ms | ActiveRecord: 0.7ms | Allocations: 19815)

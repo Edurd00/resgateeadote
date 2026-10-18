@@ -1,0 +1,76 @@
+<%= form_with(model: [:admin, animal], local: true) do |form| %>
+  <% if animal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(animal.errors.count, "erro") %> impediram o salvamento deste pet:</h2>
+      <ul>
+        <% animal.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, "Nome" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :species, "Espécie" %>
+    <%= form.select :species, Animal.species.keys.map { |k| [k == "cat" ? "Gato" : "Cachorro", k] }, prompt: "Selecione a espécie" %>
+  </div>
+
+  <div>
+    <%= form.label :age, "Idade" %>
+    <%= form.text_field :age %>
+  </div>
+
+  <div>
+    <%= form.label :sex, "Sexo" %>
+    <%= form.select :sex, Animal.sexes.keys.map { |k| [k == "male" ? "Macho" : "Fêmea", k] }, prompt: "Selecione o sexo" %>
+  </div>
+
+  <div>
+    <%= form.label :size, "Porte" %>
+    <%= form.select :size, Animal.sizes.keys.map { |k| [k == "small" ? "Pequeno" : (k == "medium" ? "Médio" : "Grande"), k] }, prompt: "Selecione o porte" %>
+  </div>
+
+  <div>
+    <%= form.label :status, "Status" %>
+    <%= form.select :status, Animal.statuses.keys.map { |k| [k == "available" ? "Disponível" : (k == "in_process" ? "Em processo" : "Adotado"), k] }, prompt: "Selecione o status" %>
+  </div>
+
+  <div>
+    <%= form.label :temperament, "Temperamento" %>
+    <%= form.text_area :temperament %>
+  </div>
+
+  <div>
+    <%= form.label :health_status, "Estado de Saúde" %>
+    <%= form.text_area :health_status %>
+  </div>
+
+  <div>
+    <%= form.label :description, "Descrição" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :city, "Cidade" %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :state, "Estado (UF)" %>
+    <%= form.text_field :state %>
+  </div>
+
+  <div>
+    <%= form.label :photos, "Fotos" %>
+    <%= form.file_field :photos, multiple: true %>
+  </div>
+
+  <div>
+    <%= form.submit "Salvar Pet" %>
+  </div>
+<% end %>
