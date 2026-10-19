@@ -4,6 +4,12 @@ class AnimalsController < ApplicationController
     if params[:species].present? && Animal.species.key?(params[:species])
       @animals = @animals.where(species: params[:species])
     end
+    if params[:size].present? && Animal.sizes.key?(params[:size])
+      @animals = @animals.where(size: params[:size])
+    end
+    if params[:sex].present? && Animal.sexes.key?(params[:sex])
+      @animals = @animals.where(sex: params[:sex])
+    end
   end
 
   def show
