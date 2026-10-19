@@ -14,18 +14,18 @@
       <div role="status" class="mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-900"><%= flash[:notice] %></div>
     <% end %>
 
-    <%= form_with url: login_path, method: :post, local: true, class: "space-y-5" do |form| %>
+    <%= form_with url: login_path, local: true, data: { turbo: false }, class: "space-y-5" do |f| %>
       <div>
-        <%= form.label :email, "E-mail", class: "block text-sm font-semibold text-gray-800" %>
-        <%= form.email_field :email, required: true, autocomplete: "email", placeholder: "voce@exemplo.com", class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
+        <%= f.label :email, "E-mail", class: "block text-sm font-semibold text-gray-800" %>
+        <%= f.email_field :email, required: true, autocomplete: "email", placeholder: "voce@exemplo.com", class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
       </div>
 
       <div>
-        <%= form.label :password, "Senha", class: "block text-sm font-semibold text-gray-800" %>
-        <%= form.password_field :password, required: true, autocomplete: "current-password", class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
+        <%= f.label :password, "Senha", class: "block text-sm font-semibold text-gray-800" %>
+        <%= f.password_field :password, required: true, autocomplete: "current-password", class: "mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
       </div>
 
-      <%= form.submit "Entrar", class: "inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-rose-500 px-4 py-3 font-bold text-white transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200" %>
+      <%= f.submit "Entrar", class: "inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-rose-500 px-4 py-3 font-bold text-white transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200" %>
     <% end %>
   </section>
 </main>
