@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
+  get "/ping", to: proc { [200, {}, ["pong"]] }
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
