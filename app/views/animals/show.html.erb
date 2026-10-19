@@ -27,7 +27,9 @@
   <section class="grid grid-cols-1 gap-12 lg:grid-cols-2" aria-labelledby="animal-name">
     <div>
       <% if @animal.photos.attached? %>
-        <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "w-full aspect-[4/3] sm:aspect-square object-cover rounded-2xl shadow-xl" %>
+        <div class="flex w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-2 shadow-xl">
+          <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "h-auto max-h-[500px] w-full rounded-2xl object-contain" %>
+        </div>
         <% if @animal.photos.count > 1 %>
           <div class="grid grid-cols-2 gap-4 mt-4">
             <% @animal.photos.drop(1).first(2).each_with_index do |photo, index| %>

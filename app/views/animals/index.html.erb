@@ -34,9 +34,9 @@
     <section aria-label="Pets disponíveis para adoção" class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <% @animals.each do |animal| %>
         <%= link_to animal_path(animal), class: "group flex flex-row overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus:ring-4 focus:ring-rose-300 md:flex-col" do %>
-          <div class="relative h-32 w-32 shrink-0 overflow-hidden rounded-l-xl bg-rose-50 sm:h-40 sm:w-40 md:aspect-[4/5] md:h-auto md:w-full md:rounded-l-none">
+          <div class="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-l-xl bg-gray-50 sm:h-40 sm:w-40 md:aspect-[4/5] md:h-auto md:w-full md:rounded-l-none">
             <% if animal.photos.attached? %>
-              <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "h-full w-full rounded-l-xl object-cover transition-transform duration-500 group-hover:scale-110 md:rounded-l-none" %>
+              <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "h-full w-full rounded-l-xl object-contain md:rounded-l-none" %>
             <% else %>
               <div class="flex h-full w-full items-center justify-center bg-rose-100 text-5xl text-rose-300" aria-label="Foto não disponível">
                 <span aria-hidden="true">🐾</span>
