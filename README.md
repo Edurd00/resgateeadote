@@ -1,95 +1,80 @@
-# 🚀 Documentação do Projeto & Roadmap
+# Resgate & Adote
 
-Este documento centraliza as funcionalidades já desenvolvidas e o plano de evolução (roadmap) para as próximas etapas do projeto.
+Plataforma de adoção inspirada no site Adote um Gatinho, criada para aproximar animais resgatados de pessoas interessadas em adotá-los. O contato de interesse é iniciado diretamente pelo WhatsApp do voluntário responsável pelo pet.
 
----
+## Tecnologias
 
-## 📑 Sumário
-- [Visão Geral](#visão-geral)
-- [Funcionalidades Implementadas](#funcionalidades-implementadas)
-- [Arquitetura e Tecnologias](#arquitetura-e-tecnologias)
-- [Roadmap de Próximas Atualizações](#roadmap-de-próximas-atualizações)
-- [Como Contribuir](#como-contribuir)
+- Ruby 3.2.3
+- Ruby on Rails 7.1.6
+- PostgreSQL em produção
+- Tailwind CSS 4
+- Active Storage com Cloudinary em produção
+- Docker
+- Render
 
----
+> Ruby 3.2.3 é a versão da linguagem usada pelo projeto. A versão Rails registrada no `Gemfile.lock` é 7.1.6.
 
-## 📌 Visão Geral
+## Contato para adoção
 
-Este projeto foi desenhado para oferecer uma solução ágil, escalável e de fácil manutenção, entregando uma experiência intuitiva para os usuários e facilitando a expansão contínua das funcionalidades.
+Cada animal pode estar associado ao usuário que o cadastrou. Na página do pet, o botão **Quero Adotar** usa o telefone de WhatsApp desse usuário (`User#phone`), removendo caracteres não numéricos e adicionando o código do Brasil quando o telefone contém apenas DDD e número. A mensagem de interesse é preenchida automaticamente.
 
----
+Se o responsável não tiver telefone configurado, a aplicação usa `DEFAULT_WHATSAPP`. Configure esse valor com o número internacional, apenas com dígitos, por exemplo `5511999999999`.
 
-## ✅ Funcionalidades Implementadas
+## Perfis e permissões
 
-### 1. **Estrutura Base e Arquitetura**
-- [x] Configuração inicial do ambiente de desenvolvimento.
-- [x] Definição e padronização dos componentes base da interface.
-- [x] Organização modular de pastas e rotas da aplicação.
+- **Superadmin:** administra os voluntários e tem acesso às funções administrativas de gestão.
+- **Admin / Voluntário:** cadastra e gerencia os pets atribuídos ao seu usuário e pode atualizar o próprio perfil e WhatsApp.
 
-### 2. **Interface e Experiência do Usuário (UI/UX)**
-- [x] Layout responsivo adaptado para dispositivos móveis e desktop.
-- [x] Estilização consistente e estruturada.
-- [x] Tratamento de estados visuais (carregamento, sucesso, erro e estados vazios).
+O primeiro Superadmin pode ser criado pelo seed. Configure `SUPERADMIN_EMAIL` e `SUPERADMIN_PASSWORD` antes de executá-lo. O seed usa `admin@resgateeadote.com.br` e `Mudar123!` como valores padrão; defina uma senha própria e segura no Render antes do primeiro deploy.
 
-### 3. **Integração e Regras de Negócio**
-- [x] Implementação dos fluxos principais de navegação.
-- [x] Validação e tratamento de formulários/dados de entrada.
-- [x] Conexão e integração com os serviços/APIs principais.
+## Executar localmente
 
----
+1. Instale Ruby 3.2.3, PostgreSQL e as dependências do projeto.
+2. Configure `DATABASE_URL` se quiser usar PostgreSQL localmente. Em desenvolvimento, a configuração padrão usa SQLite.
+3. Instale as gems e prepare o banco:
 
-## 🛠️ Arquitetura e Tecnologias
+   ```sh
+   bundle install
+   bin/rails db:prepare
+   ```
 
-- **Front-end / Interface:** Componentização limpa, responsiva e focada na experiência do usuário.
-- **Gerenciamento de Estado / Rotas:** Estrutura organizada de forma preditiva e escalável.
-- **Boas Práticas:** Padrões de código limpo (Clean Code), reutilização de módulos e separação clara de responsabilidades.
+4. Inicie o servidor:
 
----
+   ```sh
+   bin/rails server
+   ```
 
-## 🗺️ Roadmap de Próximas Atualizações
+## Deploy no Render
 
----
+### Serviço Ruby
 
-### 🟢 **Fase 1: Curto Prazo (Próxima Sprint)**
-- [ ] **Melhorias na Experiência do Usuário (UX):**
-  - Implementar suporte a *Dark Mode / Light Mode*.
-  - Adicionar feedback visual com *toasts* e notificações dinâmicas.
-- [ ] **Otimização de Performance:**
-  - Aplicar *lazy loading* e divisão de código (*code splitting*).
-  - Otimizar o carregamento de ativos e mídias.
-- [ ] **Cobertura de Testes:**
-  - Adicionar testes unitários para os componentes críticos.
+1. Crie um banco PostgreSQL no Render e um Web Service Ruby ligado ao repositório.
+2. Configure o comando de build como `./bin/render-build.sh` e o comando de início como `./bin/rails server -b 0.0.0.0`.
+3. Defina no ambiente do Web Service as variáveis abaixo:
 
----
+   | Variável | Uso |
+   | --- | --- |
+   | `DATABASE_URL` | URL interna do banco PostgreSQL do Render |
+   | `SECRET_KEY_BASE` | Segredo da aplicação Rails |
+   | `CLOUDINARY_URL` | Credenciais do Cloudinary para o Active Storage |
+   | `SUPERADMIN_EMAIL` | E-mail da conta Superadmin inicial |
+   | `SUPERADMIN_PASSWORD` | Senha inicial segura do Superadmin |
+   | `DEFAULT_WHATSAPP` | Número internacional padrão para contato, se o pet não tiver responsável com telefone |
 
-### 🟡 **Fase 2: Médio Prazo**
-- [ ] **Novas Funcionalidades de Gestão:**
-  - Filtros avançados, busca dinâmica e paginação nos relatórios/listagens.
-  - Exportação de dados nos formatos PDF e CSV.
-- [ ] **Autenticação e Segurança:**
-  - Integração com controle de acesso baseado em funções (RBAC).
-  - Implementação de autenticação em duas etapas (2FA).
-- [ ] **Internacionalização (i18n):**
-  - Suporte a múltiplos idiomas (PT-BR, EN, ES).
+   `HOST_URL` é opcional e só é usado pelo ping interno de produção. `INSTAGRAM_URL` e `FACEBOOK_URL` são opcionais e ativam os links sociais no rodapé.
 
----
+4. Faça o deploy. O `bin/render-build.sh` executa `bundle install`, precompila os assets, limpa assets antigos, aplica `bundle exec rails db:migrate` e termina com `bundle exec rails db:seed` para criar ou promover o Superadmin.
 
-### 🔴 **Fase 3: Longo Prazo**
-- [ ] **Métricas e Analytics:**
-  - Dashboard interativo com gráficos e relatórios em tempo real.
-  - Monitoramento de erros e telemetria.
-- [ ] **Automação e Integrações:**
-  - Webhooks para integração com plataformas de terceiros.
-  - Notificações em tempo real via WebSockets/Push.
+### Serviço Docker
 
----
+O Dockerfile prepara a imagem e o Render inicia o container pelo `CMD` do Dockerfile. Serviços Docker não usam o comando de build Ruby `./bin/render-build.sh` automaticamente. Configure as mesmas variáveis de ambiente. Em planos com comando de pré-deploy, use `bundle exec rails db:migrate` nesse campo; para inicializar o Superadmin, execute uma vez `bundle exec rails db:seed` no shell do serviço. Em um serviço Ruby, o script de build já executa o seed.
 
-## 🤝 Como Contribuir
+Para planos pagos, o Render recomenda executar migrações como comando de pré-deploy, separado do build. O comando de pré-deploy roda em uma instância separada e não altera o filesystem da imagem já compilada. Consulte a [documentação de deploy do Render](https://render.com/docs/deploy-rails-6-7) e a [documentação de comandos de deploy](https://render.com/docs/deploys) antes de escolher a configuração do serviço.
 
-1. Crie uma *branch* com a sua *feature*: `git checkout -b feature/minha-feature`
-2. Realize os *commits* das suas alterações: `git commit -m 'feat: adiciona minha feature'`
-3. Envie para a *branch* remota: `git push origin feature/minha-feature`
-4. Abra um **Pull Request** detalhando as alterações realizadas.
+## Upload de imagens
 
----
-*Documentação atualizada em Outubro de 2026.*
+Em produção, o Active Storage usa o serviço Cloudinary configurado em `config/storage.yml`. As credenciais devem ser fornecidas pela variável `CLOUDINARY_URL`; não grave segredos no repositório.
+
+## Licença e contribuições
+
+Consulte o responsável pelo projeto para informações sobre licença. Para contribuir, crie uma branch, faça as alterações e abra um pull request com um resumo do que foi feito.
