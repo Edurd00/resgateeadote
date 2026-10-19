@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_secure_password
 
-  enum role: { rescuer: 0, admin: 1 }
+  enum role: { admin: 0, superadmin: 1 }
 
   has_many :animals, dependent: :destroy
 

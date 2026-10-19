@@ -1,9 +1,19 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Cria ou promove a conta principal de acesso administrativo.
+superadmin_email = ENV.fetch("SUPERADMIN_EMAIL", "admin@resgateeadote.com.br")
+superadmin = User.find_or_initialize_by(email: superadmin_email)
+
+if superadmin.new_record?
+  superadmin_password = ENV["SUPERADMIN_PASSWORD"]
+  raise "Defina SUPERADMIN_PASSWORD antes de executar db:seed para criar o Superadmin." if superadmin_password.blank?
+
+  superadmin.name = "Superadmin"
+  superadmin.password = superadmin_password
+  superadmin.role = :superadmin
+  superadmin.save!
+  puts "Conta Superadmin criada para #{superadmin_email}."
+elsif superadmin.superadmin?
+  puts "A conta Superadmin #{superadmin_email} já existe."
+else
+  superadmin.update!(role: :superadmin)
+  puts "A conta #{superadmin_email} foi promovida a Superadmin."
+end

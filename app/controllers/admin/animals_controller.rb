@@ -1,4 +1,5 @@
 class Admin::AnimalsController < ApplicationController
+  before_action :require_login
   before_action :set_animal, only: [:edit, :update, :destroy]
 
   def index
