@@ -12,12 +12,12 @@
   </head>
 
   <body class="overflow-x-hidden bg-gray-50">
-    <header class="sticky top-0 z-50 border-b border-gray-100 bg-white px-6 py-4">
-      <nav class="mb-6 flex flex-col items-stretch gap-3 md:flex-row md:items-center md:justify-between" aria-label="Navegação principal">
+    <header class="sticky top-0 z-50">
+      <nav class="py-3 px-4 sm:px-6 lg:px-8 border-b border-gray-100 bg-white shadow-sm flex items-center justify-between" aria-label="Navegação principal">
         <%= link_to root_path do %>
-          <%= image_tag "logo.jfif", alt: "Resgate & Adote", class: "h-10 w-auto object-contain md:h-12" %>
+          <%= image_tag "logo.jfif", alt: "Resgate & Adote", class: "h-14 sm:h-16 md:h-20 w-auto object-contain transition-all py-1" %>
         <% end %>
-        <div class="hidden md:flex items-center space-x-4">
+        <div class="hidden md:flex items-center space-x-6">
           <% if current_user.present? %>
             <%= link_to "Painel Administrativo", admin_animals_path, class: "text-sm font-semibold text-slate-700 transition hover:text-[#00A884]" %>
             <%= link_to "Meu Perfil", edit_admin_profile_path, class: "text-sm font-semibold text-slate-700 transition hover:text-[#00A884]" %>
