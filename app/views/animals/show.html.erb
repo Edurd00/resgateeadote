@@ -1,0 +1,93 @@
+<main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+  <%= link_to "← Voltar para a vitrine", animals_path, class: "inline-flex items-center text-sm font-semibold text-rose-700 transition hover:text-rose-800" %>
+
+  <%
+    phone_number = @animal.user&.phone.to_s.gsub(/\D/, "")
+    whatsapp_message = "Olá! Vi o(a) #{@animal.name} no Resgate e Adote e quero saber mais sobre a adoção."
+    whatsapp_url = "https://wa.me/#{phone_number}?text=#{ERB::Util.url_encode(whatsapp_message)}"
+  %>
+
+  <section class="mt-6 grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12" aria-labelledby="animal-name">
+    <div>
+      <% if @animal.photos.attached? %>
+        <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "aspect-[4/3] w-full rounded-3xl object-cover shadow-lg shadow-rose-100" %>
+        <% if @animal.photos.count > 1 %>
+          <div class="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5">
+            <% @animal.photos.drop(1).each do |photo| %>
+              <%= image_tag photo, alt: "Outra foto de #{@animal.name}", class: "aspect-square w-full rounded-2xl object-cover" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-3xl bg-rose-50 text-rose-300">
+          <span class="text-7xl" aria-hidden="true">🐾</span>
+          <span class="font-medium text-slate-600">Foto em breve</span>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="space-y-6">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-rose-500"><%= @animal.cat? ? "🐱 Gato" : (@animal.dog? ? "🐶 Cachorro" : @animal.species&.titleize) %> à procura de um lar</p>
+        <h1 id="animal-name" class="mt-2 text-4xl font-extrabold tracking-tight text-slate-800 sm:text-5xl"><%= @animal.name %></h1>
+        <p class="mt-3 text-slate-600"><%= [@animal.city, @animal.state].compact_blank.join("/").presence || "Localização não informada" %></p>
+      </div>
+
+      <dl class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div class="rounded-2xl bg-amber-50 p-4">
+          <dt class="text-xs font-semibold uppercase tracking-wide text-amber-800">Idade</dt>
+          <dd class="mt-1 font-semibold text-slate-800"><%= @animal.age.presence || "Não informada" %></dd>
+        </div>
+        <div class="rounded-2xl bg-rose-50 p-4">
+          <dt class="text-xs font-semibold uppercase tracking-wide text-rose-800">Sexo</dt>
+          <dd class="mt-1 font-semibold text-slate-800"><%= @animal.male? ? "Macho" : (@animal.female? ? "Fêmea" : "Não informado") %></dd>
+        </div>
+        <div class="rounded-2xl bg-emerald-50 p-4">
+          <dt class="text-xs font-semibold uppercase tracking-wide text-emerald-800">Porte</dt>
+          <dd class="mt-1 font-semibold text-slate-800"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[@animal.size] || "Não informado" %></dd>
+        </div>
+      </dl>
+
+      <% if @animal.temperament.present? %>
+        <section class="rounded-2xl border border-violet-100 bg-violet-50/70 p-5">
+          <h2 class="font-bold text-slate-800">Jeitinho de ser</h2>
+          <p class="mt-2 leading-relaxed text-slate-600"><%= @animal.temperament %></p>
+        </section>
+      <% end %>
+
+      <div class="rounded-3xl border border-rose-100 bg-white p-5 shadow-sm sm:p-6">
+        <h2 class="text-xl font-bold text-slate-800">A história de <%= @animal.name %></h2>
+        <p class="mt-3 whitespace-pre-line leading-relaxed text-slate-600"><%= @animal.description.presence || "Toda adoção começa com um encontro. Venha conhecer #{@animal.name} e descobrir se vocês foram feitos um para o outro." %></p>
+      </div>
+
+      <% if @animal.health_status.present? %>
+        <section class="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5">
+          <h2 class="font-bold text-slate-800">Saúde e cuidados</h2>
+          <p class="mt-2 leading-relaxed text-slate-600"><%= @animal.health_status %></p>
+        </section>
+      <% end %>
+
+      <div id="adocao" class="rounded-3xl bg-rose-50 p-5 sm:p-6">
+        <p class="font-semibold text-slate-800">Pronto para mudar duas vidas?</p>
+        <p class="mt-1 text-sm leading-relaxed text-slate-600">Converse com a pessoa responsável e dê o primeiro passo para conhecer <%= @animal.name %>.</p>
+        <% if phone_number.present? %>
+          <%= link_to whatsapp_url, target: "_blank", rel: "noopener noreferrer", class: "mt-5 inline-flex w-full items-center justify-center gap-3 rounded-2xl bg-emerald-500 px-6 py-4 text-center text-lg font-extrabold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-200" do %>
+            <span aria-hidden="true">💚</span>
+            Quero Adotar este Pet
+          <% end %>
+        <% else %>
+          <%= link_to "Quero Adotar este Pet", "#instrucoes-adocao", class: "mt-5 inline-flex w-full items-center justify-center rounded-2xl bg-rose-500 px-6 py-4 text-center text-lg font-extrabold text-white shadow-lg shadow-rose-200 transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200" %>
+          <p class="mt-3 text-sm text-slate-600">Veja abaixo como entrar em contato para seguir com a adoção.</p>
+        <% end %>
+      </div>
+    </div>
+  </section>
+
+  <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
+    <h2 class="text-2xl font-bold text-slate-800">Como funciona a adoção?</h2>
+    <p class="mt-3 max-w-3xl leading-relaxed text-slate-700">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
+    <% if phone_number.present? %>
+      <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener noreferrer", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300" %>
+    <% end %>
+  </section>
+</main>
