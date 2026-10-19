@@ -18,6 +18,10 @@ class Animal < ApplicationRecord
   MAX_FILE_SIZE = 5.megabytes
 
   def acceptable_photos
+    if photos.attachments.size > 3
+      errors.add(:photos, "permite no máximo 3 fotos por pet")
+    end
+
     return unless photos.attached?
 
     photos.each do |photo|
