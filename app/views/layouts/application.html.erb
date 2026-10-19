@@ -21,7 +21,7 @@
         if (event.target.closest('[data-theme-toggle]')) toggleTheme()
       })
     </script>
-    <%= favicon_link_tag asset_path("logo.jfif") %>
+    <%= favicon_link_tag asset_path("logo.png") %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -30,8 +30,8 @@
   <body class="overflow-x-hidden bg-gray-50 text-gray-900 transition-colors duration-200 dark:bg-gray-900 dark:text-gray-100">
     <header class="sticky top-0 z-50">
       <nav class="py-3 px-4 sm:px-6 lg:px-8 border-b border-gray-100 bg-white shadow-sm flex items-center justify-between dark:border-gray-700 dark:bg-gray-800" aria-label="Navegação principal">
-        <%= link_to root_path do %>
-          <%= image_tag "logo.jfif", alt: "Resgate & Adote", class: "h-14 sm:h-16 md:h-20 w-auto object-contain transition-all py-1" %>
+        <%= link_to root_path, class: "rounded-md transition-colors dark:bg-white dark:px-1.5 dark:py-1" do %>
+          <%= image_tag "logo.png", alt: "Resgate & Adote", class: "h-12 md:h-14 w-auto object-contain transition-all" %>
         <% end %>
         <div class="hidden md:flex items-center space-x-6">
           <% if current_user.present? %>
@@ -106,8 +106,8 @@
     <footer class="mt-16 border-t border-gray-200 bg-gray-50 py-8 dark:border-gray-700 dark:bg-gray-800">
       <% social_links = { "Instagram" => ENV["INSTAGRAM_URL"], "Facebook" => ENV["FACEBOOK_URL"] }.select { |_name, url| url.present? } %>
       <div class="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 text-center sm:px-6 lg:px-8">
-        <%= link_to root_path, aria: { label: "Resgate & Adote — página inicial" } do %>
-          <%= image_tag "logo.jfif", alt: "Resgate & Adote", class: "h-8 w-auto object-contain" %>
+        <%= link_to root_path, aria: { label: "Resgate & Adote — página inicial" }, class: "rounded-md transition-colors dark:bg-white dark:px-1.5 dark:py-1" do %>
+          <%= image_tag "logo.png", alt: "Resgate & Adote", class: "h-8 w-auto object-contain" %>
         <% end %>
         <p class="text-sm text-gray-600 dark:text-gray-300">Resgate &amp; Adote © 2026 — Conectando animais resgatados a lares cheios de amor.</p>
 
