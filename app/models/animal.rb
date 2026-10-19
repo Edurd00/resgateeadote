@@ -1,7 +1,7 @@
 class Animal < ApplicationRecord
   belongs_to :user, optional: true
 
-  has_many_attached :photos
+  has_many_attached :photos, dependent: :destroy
 
   enum species: { cat: 0, dog: 1 }
   enum sex: { male: 0, female: 1 }
@@ -9,6 +9,12 @@ class Animal < ApplicationRecord
   enum status: { available: 0, in_process: 1, adopted: 2 }
 
   scope :published, -> { available }
+
+  def cover_photo
+    photos.attachments.find do |attachment|
+      ActiveModel::Type::Boolean.new.cast(attachment.blob.custom_metadata["cover"])
+    end || photos.first
+  end
 
   validate :acceptable_photos
 

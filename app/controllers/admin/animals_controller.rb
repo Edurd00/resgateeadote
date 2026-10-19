@@ -1,6 +1,6 @@
 class Admin::AnimalsController < ApplicationController
   before_action :require_login
-  before_action :set_animal, only: [:edit, :update, :destroy]
+  before_action :set_animal, only: [:edit, :update, :destroy, :purge_photo]
 
   def index
     if current_user.admin?
@@ -37,6 +37,13 @@ class Admin::AnimalsController < ApplicationController
   def destroy
     @animal.destroy
     redirect_to admin_animals_path, notice: "Animal removido com sucesso!"
+  end
+
+  def purge_photo
+    photo = @animal.photos.attachments.find_by(id: params[:photo_id])
+    photo&.purge
+
+    redirect_to edit_admin_animal_path(@animal), notice: "Foto removida com sucesso."
   end
 
   private
