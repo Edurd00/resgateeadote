@@ -10,10 +10,18 @@
   </nav>
 
   <%
-    phone_number = @animal.user&.phone.to_s.gsub(/\D/, "")
-    whatsapp_message = "Olá! Vi o(a) #{@animal.name} no Resgate e Adote e quero saber mais sobre a adoção."
-    whatsapp_url = "https://wa.me/#{phone_number}?text=#{ERB::Util.url_encode(whatsapp_message)}"
-    adoption_title = @animal.female? ? "Quero Adotar a #{@animal.name}" : (@animal.male? ? "Quero Adotar o #{@animal.name}" : "Quero Adotar #{@animal.name}")
+    whatsapp_number = @animal.user&.phone.presence || ENV.fetch("DEFAULT_WHATSAPP", "5511999999999")
+    whatsapp_number = whatsapp_number.gsub(/\D/, "")
+    whatsapp_number = "55#{whatsapp_number}" if [10, 11].include?(whatsapp_number.length)
+    mensagem = "Olá! Vi o pet #{@animal.name} no site Resgate e Adote e tenho interesse em adotar."
+    whatsapp_url = "https://wa.me/#{whatsapp_number}?text=#{ERB::Util.url_encode(mensagem)}"
+    cta_pet_name = @animal.name.to_s.strip
+    cta_pet_name = nil if cta_pet_name.blank? || cta_pet_name.casecmp?("Sem nome definido") || cta_pet_name.length > 24
+    adoption_title = if cta_pet_name
+      @animal.female? ? "Quero Adotar a #{cta_pet_name}" : (@animal.male? ? "Quero Adotar o #{cta_pet_name}" : "Quero Adotar #{cta_pet_name}")
+    else
+      "Quero Adotar este Pet"
+    end
   %>
 
   <section class="grid grid-cols-1 gap-12 lg:grid-cols-2" aria-labelledby="animal-name">
@@ -60,7 +68,7 @@
         </section>
       <% end %>
 
-      <section class="mb-8 grid w-full grid-cols-3 gap-3" aria-label="Uma nova história de adoção">
+      <section class="mb-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-3" aria-label="Uma nova história de adoção">
         <div class="rounded-2xl bg-rose-50/70 p-4 text-center">
           <span class="text-2xl" aria-hidden="true">🐾</span>
           <p class="mt-2 text-sm font-semibold text-gray-600">Um pet único</p>
@@ -84,16 +92,11 @@
 
       <div id="adocao" class="mt-auto w-full rounded-3xl bg-rose-50 p-5 sm:p-6">
         <p class="mb-2 font-semibold text-gray-800">Pronto para começar uma nova história?</p>
-        <% if phone_number.present? %>
-          <%= link_to whatsapp_url, target: "_blank", rel: "noopener noreferrer", class: "inline-flex w-full items-center justify-center rounded-full bg-rose-500 px-10 py-4 text-xl font-bold text-white shadow-lg transition-transform transform hover:-translate-y-1 hover:bg-rose-600 hover:shadow-2xl sm:w-auto" do %>
-            <span class="mr-2" aria-hidden="true">🐾</span>
-            <%= adoption_title %>
-          <% end %>
-          <p class="mt-3 text-sm text-gray-600">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
-        <% else %>
-          <%= link_to adoption_title, "#instrucoes-adocao", class: "inline-flex w-full items-center justify-center rounded-full bg-rose-500 px-10 py-4 text-xl font-bold text-white shadow-lg transition-transform transform hover:-translate-y-1 hover:bg-rose-600 hover:shadow-2xl sm:w-auto" %>
-          <p class="mt-3 text-sm text-gray-600">Confira abaixo como seguir com o processo de adoção.</p>
+        <%= link_to whatsapp_url, target: "_blank", rel: "noopener", class: "inline-flex w-full items-center justify-center rounded-2xl bg-emerald-500 px-6 py-3.5 text-center text-lg font-bold text-white shadow-md transition-all hover:bg-emerald-600 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-200" do %>
+          <span class="mr-2" aria-hidden="true">🐾</span>
+          <%= adoption_title %>
         <% end %>
+        <p class="mt-3 text-sm text-gray-600">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
       </div>
     </div>
   </section>
@@ -101,8 +104,6 @@
   <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
     <h2 class="text-2xl font-bold text-gray-800">Como funciona a adoção?</h2>
     <p class="mt-3 max-w-3xl leading-relaxed text-gray-700">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
-    <% if phone_number.present? %>
-      <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener noreferrer", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300" %>
-    <% end %>
+    <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300" %>
   </section>
 </main>

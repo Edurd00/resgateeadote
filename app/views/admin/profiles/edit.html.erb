@@ -24,6 +24,12 @@
     </div>
 
     <div>
+      <%= form.label :phone, "WhatsApp com DDD", class: "block text-sm font-semibold text-slate-800" %>
+      <%= form.telephone_field :phone, autocomplete: "tel", placeholder: "(11) 99999-9999", class: "mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
+      <p class="text-xs text-gray-500 mt-1">Este número receberá as mensagens dos interessados nos pets que você cadastrar.</p>
+    </div>
+
+    <div>
       <%= form.label :password, "Nova senha", class: "block text-sm font-semibold text-slate-800" %>
       <%= form.password_field :password, autocomplete: "new-password", class: "mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30" %>
       <p class="mt-2 text-sm text-gray-500">Deixe em branco para manter sua senha atual.</p>
