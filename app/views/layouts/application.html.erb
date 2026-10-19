@@ -17,6 +17,10 @@
         <div class="flex items-center gap-3 sm:gap-6">
           <% if current_user.present? %>
             <%= link_to "Painel Administrativo", admin_animals_path, class: "text-sm font-semibold text-slate-700 transition hover:text-rose-600 sm:text-base" %>
+            <%= link_to "Meu Perfil", edit_admin_profile_path, class: "text-sm font-semibold text-slate-700 transition hover:text-rose-600 sm:text-base" %>
+            <% if current_user.superadmin? %>
+              <%= link_to "Gerenciar Voluntários", admin_users_path, class: "text-sm font-semibold text-slate-700 transition hover:text-rose-600 sm:text-base" %>
+            <% end %>
             <%= link_to "Sair", logout_path, class: "rounded-lg bg-gray-100 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-gray-200" %>
           <% else %>
             <%= link_to "Área do Voluntário", login_path, class: "text-sm font-medium text-slate-600 transition hover:text-rose-600 sm:text-base" %>

@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :animals
+    resources :users, only: [:index, :new, :create]
+    resource :profile, only: [:edit, :update]
   end
 
   root to: "animals#index"
