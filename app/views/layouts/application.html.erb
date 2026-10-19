@@ -30,6 +30,18 @@
     </header>
 
     <main class="pt-20">
+      <% if flash.any? %>
+        <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+          <% flash.each do |type, message| %>
+            <% next if message.blank? %>
+            <% if type.to_s == "notice" %>
+              <div role="status" class="bg-green-50 border-l-4 border-green-400 p-4 mb-6 shadow-sm text-sm text-green-700"><%= message %></div>
+            <% elsif type.to_s == "alert" %>
+              <div role="alert" class="bg-red-50 border-l-4 border-red-400 p-4 mb-6 shadow-sm text-sm text-red-700"><%= message %></div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
   </body>

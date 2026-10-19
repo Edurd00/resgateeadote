@@ -1,49 +1,64 @@
-<h1>Painel de Gerenciamento de Animais</h1>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <header class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Painel de Gerenciamento de Animais</h1>
+    <%= link_to 'Novo Pet', new_admin_animal_path, class: 'bg-rose-500 hover:bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transition-colors' %>
+  </header>
 
-<%= link_to "Novo Pet", new_admin_animal_path, class: "btn btn-primary" %>
-
-<% if flash[:notice] %>
-  <div class="alert alert-success"><%= flash[:notice] %></div>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Foto Principal</th>
-      <th>Nome</th>
-      <th>Espécie</th>
-      <th>Status</th>
-      <th>Cidade/UF</th>
-      <th>Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @animals.each do |animal| %>
-      <tr>
-        <td>
-          <% if animal.photos.attached? %>
-            <%= image_tag animal.photos.first, width: 80, height: 80 %>
-          <% else %>
-            Sem foto
-          <% end %>
-        </td>
-        <td><%= animal.name %></td>
-        <td><%= animal.species_i18n rescue animal.species&.titleize %></td>
-        <td>
-          <% status_label = case animal.status
-             when "available" then "Disponível"
-             when "in_process" then "Em processo"
-             when "adopted" then "Adotado"
-             else animal.status
-             end %>
-          <%= status_label %>
-        </td>
-        <td><%= "#{animal.city}/#{animal.state}" %></td>
-        <td>
-          <%= link_to "Editar", edit_admin_animal_path(animal) %> |
-          <%= link_to "Remover", admin_animal_path(animal), data: { turbo_method: :delete, confirm: "Tem certeza?" } %>
-        </td>
-      </tr>
+  <div class="bg-white shadow-sm rounded-lg overflow-hidden border border-gray-200">
+    <div class="overflow-x-auto">
+    <table class="min-w-full">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Foto</th>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Nome</th>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Espécie</th>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Status</th>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Local</th>
+          <th scope="col" class="text-xs font-medium text-gray-500 uppercase tracking-wider px-6 py-3 text-left">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @animals.each do |animal| %>
+          <tr class="hover:bg-gray-50 border-t border-gray-200">
+            <td class="whitespace-nowrap px-6 py-4">
+              <% if animal.photos.attached? %>
+                <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "w-12 h-12 rounded-md object-cover" %>
+              <% else %>
+                <span class="flex w-12 h-12 items-center justify-center rounded-md bg-gray-100 text-xs text-gray-500">Sem foto</span>
+              <% end %>
+            </td>
+            <td class="whitespace-nowrap px-6 py-4 font-semibold text-gray-800"><%= animal.name %></td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-600"><%= animal.species_i18n rescue animal.species&.titleize %></td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm">
+              <% status_label = case animal.status
+                 when "available" then "Disponível"
+                 when "in_process" then "Em processo"
+                 when "adopted" then "Adotado"
+                 else animal.status
+                 end %>
+              <% status_classes = case animal.status
+                 when "available" then "bg-green-100 text-green-800"
+                 when "in_process" then "bg-amber-100 text-amber-800"
+                 when "adopted" then "bg-gray-100 text-gray-700"
+                 else "bg-gray-100 text-gray-700"
+                 end %>
+              <span class="<%= status_classes %> px-2 py-1 rounded-full text-xs font-semibold"><%= status_label %></span>
+            </td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-600"><%= [animal.city, animal.state].compact_blank.join("/") %></td>
+            <td class="whitespace-nowrap px-6 py-4 text-sm">
+              <div class="flex items-center gap-3">
+                <%= link_to "Editar", edit_admin_animal_path(animal), class: "font-medium text-blue-600 hover:text-blue-800" %>
+                <%= link_to "Ver", animal_path(animal), class: "font-medium text-gray-600 hover:text-gray-900" %>
+                <%= link_to "Excluir", admin_animal_path(animal), class: "font-medium text-red-600 hover:text-red-800", data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir este pet?" } %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+    <% if @animals.empty? %>
+      <p class="px-6 py-10 text-center text-gray-500">Nenhum pet cadastrado ainda.</p>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
