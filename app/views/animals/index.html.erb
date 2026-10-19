@@ -1,16 +1,16 @@
 <main class="mx-auto w-full max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8">
-  <header class="border-b border-rose-100 pb-6">
+  <header class="border-b border-rose-100 pb-6 dark:border-gray-700">
     <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-rose-500">Um lar cheio de carinho começa aqui</p>
-    <h1 class="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl">Encontre seu novo melhor amigo <span aria-hidden="true">🐾</span></h1>
-    <p class="mt-2 text-slate-600">Conheça os pets que estão esperando por uma família.</p>
+    <h1 class="text-3xl font-extrabold tracking-tight text-slate-800 sm:text-4xl dark:text-gray-100">Encontre seu novo melhor amigo <span aria-hidden="true">🐾</span></h1>
+    <p class="mt-2 text-slate-600 dark:text-gray-300">Conheça os pets que estão esperando por uma família.</p>
   </header>
 
-  <section aria-label="Filtros de animais" class="w-full rounded-3xl bg-rose-50 p-4 sm:p-5">
+  <section aria-label="Filtros de animais" class="w-full rounded-3xl bg-rose-50 p-4 sm:p-5 dark:bg-gray-800">
     <% current_species = params[:species].presence_in(Animal.species.keys) %>
     <nav aria-label="Filtrar por espécie" class="flex flex-wrap gap-2">
       <% [["Todos", nil], ["🐱 Gatos", "cat"], ["🐶 Cachorros", "dog"]].each do |label, species| %>
         <% selected = current_species == species || (species.nil? && current_species.blank?) %>
-        <%= link_to label, animals_path(request.query_parameters.except("species").merge(species: species).compact_blank), class: "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400 #{selected ? 'bg-[#E60067] text-white shadow-sm' : 'bg-white text-rose-700 hover:bg-rose-100'}" %>
+        <%= link_to label, animals_path(request.query_parameters.except("species").merge(species: species).compact_blank), class: "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400 #{selected ? 'bg-[#E60067] text-white shadow-sm' : 'bg-white text-rose-700 hover:bg-rose-100 dark:bg-gray-700 dark:text-rose-200 dark:hover:bg-gray-600'}" %>
       <% end %>
     </nav>
 
@@ -19,12 +19,12 @@
         <%= form.hidden_field :species, value: current_species %>
       <% end %>
       <div class="w-full sm:max-w-xs">
-        <%= form.label :size, "Porte", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900" %>
-        <%= form.select :size, [["Todos os portes", ""], ["Pequeno", "small"], ["Médio", "medium"], ["Grande", "large"]], { selected: params[:size] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200" %>
+        <%= form.label :size, "Porte", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200" %>
+        <%= form.select :size, [["Todos os portes", ""], ["Pequeno", "small"], ["Médio", "medium"], ["Grande", "large"]], { selected: params[:size] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
       </div>
       <div class="w-full sm:max-w-xs">
-        <%= form.label :sex, "Sexo", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900" %>
-        <%= form.select :sex, [["Todos", ""], ["Fêmea", "female"], ["Macho", "male"]], { selected: params[:sex] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200" %>
+        <%= form.label :sex, "Sexo", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200" %>
+        <%= form.select :sex, [["Todos", ""], ["Fêmea", "female"], ["Macho", "male"]], { selected: params[:sex] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
       </div>
       <%= form.submit "Filtrar pets", class: "inline-flex cursor-pointer justify-center rounded-full bg-[#E60067] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-rose-50" %>
     <% end %>
@@ -33,18 +33,18 @@
   <% if @animals.any? %>
     <section aria-label="Pets disponíveis para adoção" class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <% @animals.each do |animal| %>
-        <%= link_to animal_path(animal), class: "group flex flex-row overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus:ring-4 focus:ring-rose-300 md:flex-col" do %>
-          <div class="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-l-xl bg-gray-50 sm:h-40 sm:w-40 md:aspect-[4/5] md:h-auto md:w-full md:rounded-l-none">
+        <%= link_to animal_path(animal), class: "group flex flex-row overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus:ring-4 focus:ring-rose-300 dark:border-gray-700 dark:bg-gray-800 md:flex-col" do %>
+          <div class="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-l-xl bg-gray-50 dark:bg-gray-700 sm:h-40 sm:w-40 md:aspect-[4/5] md:h-auto md:w-full md:rounded-l-none">
             <% if animal.photos.attached? %>
               <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "h-full w-full rounded-l-xl object-contain md:rounded-l-none" %>
             <% else %>
-              <div class="flex h-full w-full items-center justify-center bg-rose-100 text-5xl text-rose-300" aria-label="Foto não disponível">
+              <div class="flex h-full w-full items-center justify-center bg-rose-100 text-5xl text-rose-300 dark:bg-gray-700" aria-label="Foto não disponível">
                 <span aria-hidden="true">🐾</span>
               </div>
             <% end %>
 
             <% if animal.created_at >= 7.days.ago %>
-              <span class="absolute left-2 top-2 rounded-full bg-white px-2 py-1 text-[10px] font-bold text-rose-600 shadow sm:left-3 sm:top-3 sm:px-3 sm:text-xs">Chegou agora</span>
+              <span class="absolute left-2 top-2 rounded-full bg-white px-2 py-1 text-[10px] font-bold text-rose-600 shadow dark:bg-gray-800 dark:text-rose-300 sm:left-3 sm:top-3 sm:px-3 sm:text-xs">Chegou agora</span>
             <% end %>
 
             <span class="absolute bottom-2 left-2 inline-flex items-center justify-center rounded-full bg-black/30 p-1.5 sm:bottom-3 sm:left-3 sm:p-2" aria-label="<%= animal.female? ? 'Fêmea' : (animal.male? ? 'Macho' : 'Sexo não informado') %>">
@@ -68,13 +68,13 @@
 
           <div class="min-w-0 flex-1 overflow-hidden p-3 flex flex-col justify-between md:w-full md:p-4">
             <div class="min-w-0">
-              <h2 class="text-base font-bold text-gray-900 truncate"><%= animal.name %></h2>
-              <p class="mt-1 line-clamp-3 text-sm leading-relaxed text-gray-600"><%= animal.temperament.presence || animal.description.presence || "Um novo amigo está esperando para conhecer você." %></p>
+              <h2 class="truncate text-base font-bold text-gray-900 dark:text-gray-100"><%= animal.name %></h2>
+              <p class="mt-1 line-clamp-3 text-sm leading-relaxed text-gray-600 dark:text-gray-300"><%= animal.temperament.presence || animal.description.presence || "Um novo amigo está esperando para conhecer você." %></p>
             </div>
             <div class="flex flex-wrap gap-1.5 mt-2">
-              <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-md"><%= animal.age.presence || "Idade desconhecida" %></span>
+              <span class="rounded-md bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-gray-700 dark:text-rose-200"><%= animal.age.presence || "Idade desconhecida" %></span>
               <% if animal.size.present? %>
-                <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-md"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[animal.size] %></span>
+                <span class="rounded-md bg-rose-50 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-gray-700 dark:text-rose-200"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[animal.size] %></span>
               <% end %>
               <span class="rounded-md px-2 py-0.5 text-xs font-medium <%= animal.cat? ? 'bg-[#00A884]/10 text-[#00A884]' : 'bg-[#E60067]/10 text-[#E60067]' %>"><%= animal.cat? ? "🐱 Gato" : "🐶 Cachorro" %></span>
             </div>
@@ -83,10 +83,10 @@
       <% end %>
     </section>
   <% else %>
-    <section class="mx-auto max-w-lg rounded-3xl border border-rose-100 bg-white px-6 py-12 text-center shadow-sm">
+    <section class="mx-auto max-w-lg rounded-3xl border border-rose-100 bg-white px-6 py-12 text-center shadow-sm dark:border-gray-700 dark:bg-gray-800">
       <p class="text-5xl" aria-hidden="true">🐾</p>
-      <h2 class="mt-4 text-xl font-bold text-slate-800">Nenhum pet encontrado</h2>
-      <p class="mt-2 text-slate-600">Tente ajustar os filtros para conhecer outros animais.</p>
+      <h2 class="mt-4 text-xl font-bold text-slate-800 dark:text-gray-100">Nenhum pet encontrado</h2>
+      <p class="mt-2 text-slate-600 dark:text-gray-300">Tente ajustar os filtros para conhecer outros animais.</p>
       <%= link_to "Limpar filtros", animals_path, class: "mt-6 inline-flex rounded-xl bg-[#E60067] px-5 py-3 font-semibold text-white transition hover:bg-[#c40057]" %>
     </section>
   <% end %>

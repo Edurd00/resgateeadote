@@ -1,8 +1,8 @@
 <main class="mx-auto w-full max-w-2xl space-y-6 px-4 py-8 sm:px-6 lg:px-8">
   <div>
     <%= link_to "← Voltar para voluntários", admin_users_path, class: "text-sm font-semibold text-rose-700 hover:text-rose-800" %>
-    <h1 class="mt-4 text-3xl font-bold text-slate-900">Cadastrar voluntário</h1>
-    <p class="mt-2 text-slate-600">Crie uma conta para acessar o painel administrativo.</p>
+    <h1 class="mt-4 text-3xl font-bold text-slate-900 dark:text-gray-100">Cadastrar voluntário</h1>
+    <p class="mt-2 text-slate-600 dark:text-gray-300">Crie uma conta para acessar o painel administrativo.</p>
   </div>
 
   <%= render "form", user: @user %>

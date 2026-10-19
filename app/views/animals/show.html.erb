@@ -1,11 +1,11 @@
 <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500">
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500 dark:text-gray-400">
     <ol class="flex flex-wrap items-center gap-2">
-      <li><%= link_to "Home", root_path, class: "transition hover:text-rose-600" %></li>
+      <li><%= link_to "Home", root_path, class: "transition hover:text-rose-600 dark:hover:text-rose-300" %></li>
       <li aria-hidden="true">&gt;</li>
-      <li><%= link_to "Animais para adoção", animals_path, class: "transition hover:text-rose-600" %></li>
+      <li><%= link_to "Animais para adoção", animals_path, class: "transition hover:text-rose-600 dark:hover:text-rose-300" %></li>
       <li aria-hidden="true">&gt;</li>
-      <li class="font-medium text-gray-700" aria-current="page"><%= @animal.name %></li>
+      <li class="font-medium text-gray-700 dark:text-gray-200" aria-current="page"><%= @animal.name %></li>
     </ol>
   </nav>
 
@@ -27,7 +27,7 @@
   <section class="grid grid-cols-1 gap-12 lg:grid-cols-2" aria-labelledby="animal-name">
     <div>
       <% if @animal.photos.attached? %>
-        <div class="flex w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-2 shadow-xl">
+        <div class="flex w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-2 shadow-xl dark:bg-gray-800">
           <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "h-auto max-h-[500px] w-full rounded-2xl object-contain" %>
         </div>
         <% if @animal.photos.count > 1 %>
@@ -38,9 +38,9 @@
           </div>
         <% end %>
       <% else %>
-        <div class="flex w-full aspect-[4/5] flex-col items-center justify-center gap-3 rounded-3xl bg-rose-50 text-rose-300 shadow-xl">
+        <div class="flex w-full aspect-[4/5] flex-col items-center justify-center gap-3 rounded-3xl bg-rose-50 text-rose-300 shadow-xl dark:bg-gray-800">
           <span class="text-7xl" aria-hidden="true">🐾</span>
-          <span class="font-medium text-gray-600">Foto em breve</span>
+          <span class="font-medium text-gray-600 dark:text-gray-300">Foto em breve</span>
         </div>
       <% end %>
     </div>
@@ -59,53 +59,53 @@
       </div>
 
       <section class="mb-8 w-full">
-        <h2 class="mb-3 text-xl font-bold text-gray-800">A história de <%= @animal.name %></h2>
-        <p class="text-lg leading-relaxed text-gray-700"><%= @animal.description.presence || "Toda adoção começa com um encontro. Venha conhecer #{@animal.name} e descobrir se vocês foram feitos um para o outro." %></p>
+        <h2 class="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">A história de <%= @animal.name %></h2>
+        <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.description.presence || "Toda adoção começa com um encontro. Venha conhecer #{@animal.name} e descobrir se vocês foram feitos um para o outro." %></p>
       </section>
 
       <% if @animal.temperament.present? %>
-        <section class="mb-8 w-full rounded-2xl bg-gray-50 p-5">
-          <h2 class="mb-2 text-lg font-bold text-gray-800">Personalidade</h2>
-          <p class="leading-relaxed text-gray-700"><%= @animal.temperament %></p>
+        <section class="mb-8 w-full rounded-2xl bg-gray-50 p-5 dark:bg-gray-800">
+          <h2 class="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">Personalidade</h2>
+          <p class="leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.temperament %></p>
         </section>
       <% end %>
 
       <section class="mb-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-3" aria-label="Uma nova história de adoção">
-        <div class="rounded-2xl bg-rose-50/70 p-4 text-center">
+        <div class="rounded-2xl bg-rose-50/70 p-4 text-center dark:bg-gray-800">
           <span class="text-2xl" aria-hidden="true">🐾</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600">Um pet único</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Um pet único</p>
         </div>
-        <div class="rounded-2xl bg-amber-50 p-4 text-center">
+        <div class="rounded-2xl bg-amber-50 p-4 text-center dark:bg-gray-800">
           <span class="text-2xl" aria-hidden="true">🏡</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600">Um novo lar</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Um novo lar</p>
         </div>
-        <div class="rounded-2xl bg-orange-50 p-4 text-center">
+        <div class="rounded-2xl bg-orange-50 p-4 text-center dark:bg-gray-800">
           <span class="text-2xl" aria-hidden="true">💛</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600">Companheirismo</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Companheirismo</p>
         </div>
       </section>
 
       <% if @animal.health_status.present? %>
-        <section class="mb-8 w-full rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
-          <h2 class="font-bold text-gray-800">Saúde e cuidados</h2>
-          <p class="mt-2 leading-relaxed text-gray-700"><%= @animal.health_status %></p>
+        <section class="mb-8 w-full rounded-2xl border border-emerald-100 bg-emerald-50 p-5 dark:border-emerald-900 dark:bg-emerald-950">
+          <h2 class="font-bold text-gray-800 dark:text-gray-100">Saúde e cuidados</h2>
+          <p class="mt-2 leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.health_status %></p>
         </section>
       <% end %>
 
-      <div id="adocao" class="mt-auto w-full rounded-3xl bg-rose-50 p-5 sm:p-6">
-        <p class="mb-2 font-semibold text-gray-800">Pronto para começar uma nova história?</p>
+      <div id="adocao" class="mt-auto w-full rounded-3xl bg-rose-50 p-5 sm:p-6 dark:bg-gray-800">
+        <p class="mb-2 font-semibold text-gray-800 dark:text-gray-100">Pronto para começar uma nova história?</p>
         <%= link_to whatsapp_url, target: "_blank", rel: "noopener", class: "inline-flex w-full items-center justify-center rounded-2xl bg-[#00A884] px-6 py-3.5 text-center text-lg font-bold text-white shadow-md transition-all hover:bg-[#008f6f] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-200" do %>
           <span class="mr-2" aria-hidden="true">🐾</span>
           <%= adoption_title %>
         <% end %>
-        <p class="mt-3 text-sm text-gray-600">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
+        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
       </div>
     </div>
   </section>
 
-  <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8">
-    <h2 class="text-2xl font-bold text-gray-800">Como funciona a adoção?</h2>
-    <p class="mt-3 max-w-3xl leading-relaxed text-gray-700">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
-    <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300" %>
+  <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+    <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Como funciona a adoção?</h2>
+    <p class="mt-3 max-w-3xl leading-relaxed text-gray-700 dark:text-gray-300">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
+    <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300 dark:border-gray-600 dark:bg-gray-700 dark:text-amber-200 dark:hover:bg-gray-600" %>
   </section>
 </main>
