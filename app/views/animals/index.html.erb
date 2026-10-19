@@ -10,7 +10,7 @@
     <nav aria-label="Filtrar por espécie" class="flex flex-wrap gap-2">
       <% [["Todos", nil], ["🐱 Gatos", "cat"], ["🐶 Cachorros", "dog"]].each do |label, species| %>
         <% selected = current_species == species || (species.nil? && current_species.blank?) %>
-        <%= link_to label, animals_path(request.query_parameters.except("species").merge(species: species).compact_blank), class: "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400 #{selected ? 'bg-rose-500 text-white shadow-sm' : 'bg-white text-rose-700 hover:bg-rose-100'}" %>
+        <%= link_to label, animals_path(request.query_parameters.except("species").merge(species: species).compact_blank), class: "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400 #{selected ? 'bg-[#E60067] text-white shadow-sm' : 'bg-white text-rose-700 hover:bg-rose-100'}" %>
       <% end %>
     </nav>
 
@@ -26,7 +26,7 @@
         <%= form.label :sex, "Sexo", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900" %>
         <%= form.select :sex, [["Todos", ""], ["Fêmea", "female"], ["Macho", "male"]], { selected: params[:sex] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200" %>
       </div>
-      <%= form.submit "Filtrar pets", class: "inline-flex cursor-pointer justify-center rounded-full bg-rose-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-rose-50" %>
+      <%= form.submit "Filtrar pets", class: "inline-flex cursor-pointer justify-center rounded-full bg-[#E60067] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-rose-50" %>
     <% end %>
   </section>
 
@@ -76,7 +76,7 @@
               <% if animal.size.present? %>
                 <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-md"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[animal.size] %></span>
               <% end %>
-              <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-md"><%= animal.cat? ? "🐱 Gato" : "🐶 Cachorro" %></span>
+              <span class="rounded-md px-2 py-0.5 text-xs font-medium <%= animal.cat? ? 'bg-[#00A884]/10 text-[#00A884]' : 'bg-[#E60067]/10 text-[#E60067]' %>"><%= animal.cat? ? "🐱 Gato" : "🐶 Cachorro" %></span>
             </div>
           </div>
         <% end %>
@@ -87,7 +87,7 @@
       <p class="text-5xl" aria-hidden="true">🐾</p>
       <h2 class="mt-4 text-xl font-bold text-slate-800">Nenhum pet encontrado</h2>
       <p class="mt-2 text-slate-600">Tente ajustar os filtros para conhecer outros animais.</p>
-      <%= link_to "Limpar filtros", animals_path, class: "mt-6 inline-flex rounded-xl bg-rose-500 px-5 py-3 font-semibold text-white transition hover:bg-rose-600" %>
+      <%= link_to "Limpar filtros", animals_path, class: "mt-6 inline-flex rounded-xl bg-[#E60067] px-5 py-3 font-semibold text-white transition hover:bg-[#c40057]" %>
     </section>
   <% end %>
 </main>

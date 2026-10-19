@@ -24,7 +24,7 @@
           <% input_id = "animal_species_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :species, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-rose-400 peer-checked:border-rose-500 peer-checked:bg-rose-500 peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-rose-500"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067]"><%= label %></span>
           </label>
         <% end %>
       </div>
@@ -44,7 +44,7 @@
           <% input_id = "animal_sex_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :sex, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-rose-400 peer-checked:border-rose-500 peer-checked:bg-rose-500 peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-rose-500"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067]"><%= label %></span>
           </label>
         <% end %>
       </div>
@@ -57,7 +57,7 @@
           <% input_id = "animal_size_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :size, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-rose-400 peer-checked:border-rose-500 peer-checked:bg-rose-500 peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-rose-500"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067]"><%= label %></span>
           </label>
         <% end %>
       </div>
@@ -140,6 +140,6 @@
 
   <div class="fixed inset-x-0 bottom-0 z-20 flex gap-3 border-t border-slate-200 bg-white p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-[0_-4px_16px_rgba(15,23,42,0.08)] md:static md:mt-8 md:justify-end md:border-t md:bg-transparent md:p-0 md:pb-0 md:pt-6 md:shadow-none">
     <%= link_to "Cancelar", admin_animals_path, class: "inline-flex min-h-12 flex-1 items-center justify-center rounded-xl border border-gray-300 bg-white px-5 py-3 font-semibold text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-300 md:flex-none" %>
-    <%= form.submit "Salvar Pet", class: "inline-flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-xl bg-rose-500 px-6 py-3 font-bold text-white shadow-sm transition hover:bg-rose-600 focus:outline-none focus:ring-4 focus:ring-rose-200 md:flex-none" %>
+    <%= form.submit "Salvar Pet", class: "inline-flex min-h-12 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#E60067] px-6 py-3 font-bold text-white shadow-sm transition hover:bg-[#c40057] focus:outline-none focus:ring-4 focus:ring-rose-200 md:flex-none" %>
   </div>
 <% end %>

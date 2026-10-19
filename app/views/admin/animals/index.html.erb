@@ -1,7 +1,7 @@
 <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
   <header class="mb-8 flex flex-col items-stretch gap-4 md:flex-row md:items-center md:justify-between">
     <h1 class="text-2xl font-bold text-gray-900 sm:text-3xl">Painel de Gerenciamento de Animais</h1>
-    <%= link_to "Novo Pet", new_admin_animal_path, class: "inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-rose-500 px-5 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-rose-600 md:w-auto" %>
+    <%= link_to "Novo Pet", new_admin_animal_path, class: "inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-[#E60067] px-5 py-3 font-semibold text-white shadow-sm transition-colors hover:bg-[#c40057] md:w-auto" %>
   </header>
 
   <% if @animals.empty? %>
@@ -12,8 +12,8 @@
     <section class="space-y-4 md:hidden" aria-label="Pets cadastrados">
       <% @animals.each do |animal| %>
         <% status_label, status_classes = case animal.status
-           when "available" then ["Disponível", "bg-green-100 text-green-800"]
-           when "in_process" then ["Em processo", "bg-amber-100 text-amber-800"]
+           when "available" then ["Disponível", "bg-[#00A884]/10 text-[#00A884]"]
+           when "in_process" then ["Em processo", "bg-[#E60067]/10 text-[#E60067]"]
            when "adopted" then ["Adotado", "bg-gray-100 text-gray-700"]
            else [animal.status, "bg-gray-100 text-gray-700"]
            end %>
@@ -28,7 +28,7 @@
             <div class="min-w-0">
               <h2 class="truncate text-lg font-bold text-gray-900"><%= animal.name.presence || "Pet sem nome" %></h2>
               <span class="mt-1 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold <%= status_classes %>"><%= status_label %></span>
-              <p class="mt-1 text-sm text-gray-500"><%= animal.cat? ? "Gato" : (animal.dog? ? "Cachorro" : "Espécie não informada") %></p>
+              <span class="mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium <%= animal.cat? ? 'bg-[#00A884]/10 text-[#00A884]' : (animal.dog? ? 'bg-[#E60067]/10 text-[#E60067]' : 'bg-gray-100 text-gray-600') %>"><%= animal.cat? ? "Gato" : (animal.dog? ? "Cachorro" : "Espécie não informada") %></span>
             </div>
             <div class="grid grid-cols-2 gap-2">
               <%= link_to "Editar", edit_admin_animal_path(animal), class: "inline-flex min-h-11 items-center justify-center rounded-lg bg-blue-50 px-3 py-2 text-sm font-semibold text-blue-700 transition hover:bg-blue-100" %>
@@ -55,8 +55,8 @@
           <tbody class="divide-y divide-gray-200 bg-white">
             <% @animals.each do |animal| %>
               <% status_label, status_classes = case animal.status
-                 when "available" then ["Disponível", "bg-green-100 text-green-800"]
-                 when "in_process" then ["Em processo", "bg-amber-100 text-amber-800"]
+                 when "available" then ["Disponível", "bg-[#00A884]/10 text-[#00A884]"]
+                 when "in_process" then ["Em processo", "bg-[#E60067]/10 text-[#E60067]"]
                  when "adopted" then ["Adotado", "bg-gray-100 text-gray-700"]
                  else [animal.status, "bg-gray-100 text-gray-700"]
                  end %>
@@ -69,7 +69,9 @@
                   <% end %>
                 </td>
                 <td class="whitespace-nowrap px-6 py-4 font-semibold text-gray-800"><%= animal.name.presence || "Pet sem nome" %></td>
-                <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-600"><%= animal.cat? ? "Gato" : (animal.dog? ? "Cachorro" : "Não informada") %></td>
+                <td class="whitespace-nowrap px-6 py-4 text-sm">
+                  <span class="rounded-full px-2 py-1 text-xs font-medium <%= animal.cat? ? 'bg-[#00A884]/10 text-[#00A884]' : (animal.dog? ? 'bg-[#E60067]/10 text-[#E60067]' : 'bg-gray-100 text-gray-600') %>"><%= animal.cat? ? "Gato" : (animal.dog? ? "Cachorro" : "Não informada") %></span>
+                </td>
                 <td class="whitespace-nowrap px-6 py-4 text-sm">
                   <span class="rounded-full px-2 py-1 text-xs font-semibold <%= status_classes %>"><%= status_label %></span>
                 </td>
