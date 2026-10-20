@@ -56,7 +56,7 @@
       <div class="mb-7 flex flex-wrap gap-2" aria-label="Características de #{@animal.name}">
         <span class="mb-2 rounded-full bg-rose-50 px-4 py-1 text-sm font-medium text-rose-700"><%= @animal.male? ? "Macho" : (@animal.female? ? "Fêmea" : "Sexo não informado") %></span>
         <span class="mb-2 rounded-full bg-rose-50 px-4 py-1 text-sm font-medium text-rose-700"><%= { "small" => "Porte pequeno", "medium" => "Porte médio", "large" => "Porte grande" }[@animal.size] || "Porte não informado" %></span>
-        <span class="mb-2 rounded-full bg-rose-50 px-4 py-1 text-sm font-medium text-rose-700"><%= @animal.age.presence || "Idade não informada" %></span>
+        <span class="mb-2 rounded-full bg-rose-50 px-4 py-1 text-sm font-medium text-rose-700"><%= @animal.age.present? ? localized_animal_age(@animal.age) : "Idade não informada" %></span>
         <% if [@animal.city, @animal.state].any?(&:present?) %>
           <span class="mb-2 rounded-full bg-rose-50 px-4 py-1 text-sm font-medium text-rose-700"><%= [@animal.city, @animal.state].compact_blank.join("/") %></span>
         <% end %>
