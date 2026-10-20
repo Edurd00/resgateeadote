@@ -6,27 +6,62 @@
 
   <section aria-label="Filtros de animais" class="mb-6 w-full rounded-3xl bg-rose-50 p-4 sm:p-5 dark:bg-gray-800">
     <% current_species = params[:species].presence_in(Animal.species.keys) %>
-    <nav aria-label="Filtrar por espécie" class="flex flex-wrap gap-2">
+    <details id="animal-filters" class="group">
+      <summary class="mb-3 flex cursor-pointer list-none items-center justify-between rounded-2xl bg-rose-50 px-4 py-3 font-bold text-rose-700 marker:hidden md:hidden dark:bg-gray-700 dark:text-rose-200">
+        🔍 Filtrar Animais <span class="text-xs font-normal">Expandir ↓</span>
+      </summary>
+      <nav aria-label="Filtrar por espécie" class="flex flex-wrap gap-2">
       <% [["Todos", nil], ["🐱 Gatos", "cat"], ["🐶 Cachorros", "dog"]].each do |label, species| %>
         <% selected = current_species == species || (species.nil? && current_species.blank?) %>
         <%= link_to label, animals_path(request.query_parameters.except("species").merge(species: species).compact_blank), class: "rounded-full px-4 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-rose-400 #{selected ? 'bg-[#E60067] text-white shadow-sm' : 'bg-white text-rose-700 hover:bg-rose-100 dark:bg-gray-700 dark:text-rose-200 dark:hover:bg-gray-600'}" %>
       <% end %>
-    </nav>
+      </nav>
 
-    <%= form_with url: animals_path, method: :get, local: true, class: "mt-4 flex flex-col gap-3 sm:flex-row sm:items-end" do |form| %>
+      <%= form_with url: animals_path, method: :get, local: true, class: "mt-4 flex flex-col gap-4" do |form| %>
       <% if current_species.present? %>
         <%= form.hidden_field :species, value: current_species %>
       <% end %>
-      <div class="w-full sm:max-w-xs">
-        <%= form.label :size, "Porte", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200" %>
-        <%= form.select :size, [["Todos os portes", ""], ["Pequeno", "small"], ["Médio", "medium"], ["Grande", "large"]], { selected: params[:size] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200">Porte</p>
+        <div class="flex flex-wrap gap-2">
+          <% [["Todos", ""], ["Pequeno", "small"], ["Médio", "medium"], ["Grande", "large"]].each_with_index do |(label, value), index| %>
+            <% input_id = "animal_size_filter_#{index}" %>
+            <% selected = params[:size].to_s == value %>
+            <label for="<%= input_id %>" class="cursor-pointer">
+              <%= form.radio_button :size, value, id: input_id, checked: selected, class: "peer sr-only" %>
+              <span class="inline-flex items-center rounded-full px-4 py-2 text-sm transition peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] <%= selected ? 'bg-[#E60067] text-white font-bold' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200' %>"><%= label %></span>
+            </label>
+          <% end %>
+        </div>
       </div>
-      <div class="w-full sm:max-w-xs">
-        <%= form.label :sex, "Sexo", class: "mb-1 block text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200" %>
-        <%= form.select :sex, [["Todos", ""], ["Fêmea", "female"], ["Macho", "male"]], { selected: params[:sex] }, class: "w-full rounded-full border border-rose-200 bg-white px-4 py-2.5 text-sm text-slate-700 focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
+      <div>
+        <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-rose-900 dark:text-rose-200">Sexo</p>
+        <div class="flex flex-wrap gap-2">
+          <% [["Todos", ""], ["♂ Macho", "male"], ["♀ Fêmea", "female"]].each_with_index do |(label, value), index| %>
+            <% input_id = "animal_sex_filter_#{index}" %>
+            <% selected = params[:sex].to_s == value %>
+            <label for="<%= input_id %>" class="cursor-pointer">
+              <%= form.radio_button :sex, value, id: input_id, checked: selected, class: "peer sr-only" %>
+              <span class="inline-flex items-center rounded-full px-4 py-2 text-sm transition peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] <%= selected ? 'bg-[#E60067] text-white font-bold' : 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200' %>"><%= label %></span>
+            </label>
+          <% end %>
+        </div>
       </div>
-      <%= form.submit "Filtrar pets", class: "inline-flex cursor-pointer justify-center rounded-full bg-[#E60067] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-rose-50" %>
-    <% end %>
+      <div class="flex flex-wrap items-center gap-3">
+        <%= form.submit "Filtrar pets", class: "inline-flex cursor-pointer justify-center rounded-full bg-[#E60067] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-offset-2 focus:ring-offset-rose-50" %>
+        <%= link_to "Limpar filtros", root_path, class: "ml-2 text-xs text-gray-500 underline" if params[:species].present? || params[:size].present? || params[:sex].present? %>
+      </div>
+      <% end %>
+    </details>
+    <script>
+      (() => {
+        const filters = document.getElementById("animal-filters");
+        const mobile = window.matchMedia("(max-width: 767px)");
+        const syncFilters = () => { filters.open = !mobile.matches; };
+        syncFilters();
+        mobile.addEventListener("change", syncFilters);
+      })();
+    </script>
   </section>
 
   <% if @animals.any? %>
