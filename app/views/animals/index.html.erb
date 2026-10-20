@@ -32,21 +32,21 @@
   <% if @animals.any? %>
     <section aria-label="Pets disponíveis para adoção" class="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <% @animals.each do |animal| %>
-        <%= link_to animal_path(animal), class: "group flex flex-row overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus:ring-4 focus:ring-rose-300 dark:border-gray-700 dark:bg-gray-800 md:flex-col" do %>
-          <div class="relative flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-l-xl bg-gray-50 dark:bg-gray-700 sm:h-40 sm:w-40 md:aspect-[4/5] md:h-auto md:w-full md:rounded-l-none">
+        <%= link_to animal_path(animal), class: "group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition hover:shadow-md focus:outline-none focus:ring-4 focus:ring-rose-300 dark:border-gray-700 dark:bg-gray-800" do %>
+          <div class="relative flex w-full aspect-[4/5] items-center justify-center overflow-hidden rounded-t-2xl bg-gray-100 p-1 dark:bg-gray-800">
             <% if animal.photos.attached? %>
-              <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "h-full w-full rounded-l-xl object-contain md:rounded-l-none" %>
+              <%= image_tag animal.photos.first, alt: "Foto de #{animal.name}", class: "w-full h-full object-contain rounded-xl transition-transform duration-300 group-hover:scale-105" %>
             <% else %>
-              <div class="flex h-full w-full items-center justify-center bg-rose-100 text-5xl text-rose-300 dark:bg-gray-700" aria-label="Foto não disponível">
+              <div class="flex h-full w-full items-center justify-center rounded-xl bg-rose-100 text-5xl text-rose-300 dark:bg-gray-700" aria-label="Foto não disponível">
                 <span aria-hidden="true">🐾</span>
               </div>
             <% end %>
 
             <% if animal.created_at >= 7.days.ago %>
-              <span class="absolute left-2 top-2 rounded-full bg-white px-2 py-1 text-[10px] font-bold text-rose-600 shadow dark:bg-gray-800 dark:text-rose-300 sm:left-3 sm:top-3 sm:px-3 sm:text-xs">Chegou agora</span>
+              <span class="absolute left-3 top-3 z-10 rounded-full bg-white px-2 py-1 text-[10px] font-bold text-rose-600 shadow dark:bg-gray-800 dark:text-rose-300 sm:px-3 sm:text-xs">Chegou agora</span>
             <% end %>
 
-            <span class="absolute bottom-2 left-2 inline-flex items-center justify-center rounded-full bg-black/30 p-1.5 sm:bottom-3 sm:left-3 sm:p-2" aria-label="<%= animal.female? ? 'Fêmea' : (animal.male? ? 'Macho' : 'Sexo não informado') %>">
+            <span class="absolute bottom-3 left-3 z-10 inline-flex items-center justify-center rounded-full bg-black/30 p-1.5 sm:p-2" aria-label="<%= animal.female? ? 'Fêmea' : (animal.male? ? 'Macho' : 'Sexo não informado') %>">
               <% if animal.female? %>
                 <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white/90 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="8" r="5" />

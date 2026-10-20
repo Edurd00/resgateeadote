@@ -1,3 +1,5 @@
+require "digest/md5"
+
 class Admin::AnimalsController < ApplicationController
   before_action :require_login
   before_action :set_animal, only: [:edit, :update, :destroy, :purge_photo]
@@ -27,7 +29,20 @@ class Admin::AnimalsController < ApplicationController
   end
 
   def update
-    if @animal.update(animal_params)
+    animal_params_without_photos = animal_params.except(:photos)
+
+    if @animal.update(animal_params_without_photos)
+      new_photos = animal_params[:photos]
+      if new_photos.present? && new_photos.any?(&:present?)
+        new_photos.each do |new_photo|
+          next unless new_photo.present?
+
+          checksum = Digest::MD5.file(new_photo.tempfile.path).base64digest
+          already_attached = @animal.photos.attachments.any? { |photo| photo.blob.checksum == checksum }
+          @animal.photos.attach(new_photo) unless already_attached
+        end
+      end
+
       redirect_to admin_animals_path, notice: "Animal atualizado com sucesso!"
     else
       render :edit, status: :unprocessable_content

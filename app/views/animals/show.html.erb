@@ -29,13 +29,15 @@
   <section class="grid grid-cols-1 gap-12 lg:grid-cols-2" aria-labelledby="animal-name">
     <div>
       <% if @animal.photos.attached? %>
-        <div class="flex w-full items-center justify-center overflow-hidden rounded-3xl bg-gray-100 p-2 shadow-xl dark:bg-gray-800">
-          <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "h-auto max-h-[500px] w-full rounded-2xl object-contain" %>
+        <div class="w-full aspect-[4/5] sm:aspect-square max-h-[550px] bg-gray-100 dark:bg-gray-800/80 rounded-3xl p-2 flex items-center justify-center shadow-inner overflow-hidden">
+          <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "w-full h-full object-contain rounded-2xl" %>
         </div>
         <% if @animal.photos.count > 1 %>
-          <div class="grid grid-cols-2 gap-4 mt-4">
+          <div class="mt-4 flex flex-wrap gap-3">
             <% @animal.photos.drop(1).first(2).each_with_index do |photo, index| %>
-              <%= image_tag photo, alt: "Foto #{index + 2} de #{@animal.name}", class: "rounded-xl object-cover aspect-video sm:aspect-square" %>
+              <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 border border-gray-200 dark:border-gray-700 cursor-pointer">
+                <%= image_tag photo, alt: "Foto #{index + 2} de #{@animal.name}", class: "w-full h-full object-contain rounded-lg" %>
+              </div>
             <% end %>
           </div>
         <% end %>
