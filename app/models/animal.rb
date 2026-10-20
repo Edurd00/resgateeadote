@@ -10,6 +10,8 @@ class Animal < ApplicationRecord
 
   scope :published, -> { available }
 
+  before_validation :set_default_name
+
   def cover_photo
     photos.attachments.find do |attachment|
       ActiveModel::Type::Boolean.new.cast(attachment.blob.custom_metadata["cover"])
@@ -22,6 +24,10 @@ class Animal < ApplicationRecord
 
   ACCEPTABLE_CONTENT_TYPES = ["image/png", "image/jpg", "image/jpeg", "image/webp"].freeze
   MAX_FILE_SIZE = 5.megabytes
+
+  def set_default_name
+    self.name = "Pet para Adoção" if name.blank?
+  end
 
   def acceptable_photos
     if photos.attachments.size > 3
