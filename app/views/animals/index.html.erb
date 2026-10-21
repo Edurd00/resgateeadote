@@ -91,16 +91,16 @@
             </span>
           </div>
 
-          <div class="flex w-2/3 min-w-0 flex-col justify-between overflow-hidden p-3 sm:p-4 md:w-auto md:flex-grow">
+          <div class="flex w-2/3 min-w-0 flex-grow flex-col justify-between overflow-hidden p-3 sm:p-4 md:w-auto">
             <div class="min-w-0">
               <h3 class="truncate text-base font-bold text-[#E60067] dark:text-white sm:text-lg"><%= animal.name %></h3>
               <p class="mb-2 mt-1 line-clamp-2 text-xs text-gray-600 dark:text-slate-300 sm:text-sm"><%= animal.description.presence || animal.temperament.presence || "Um novo amigo está esperando para conhecer você." %></p>
             </div>
-            <div class="mt-auto flex flex-wrap items-center gap-1.5 pt-2">
-              <span class="inline-flex items-center gap-1 whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold <%= animal.cat? ? 'border-emerald-200/50 bg-emerald-50 text-emerald-700 dark:border-emerald-800/40 dark:bg-emerald-950/60 dark:text-emerald-300' : 'border-rose-200/50 bg-rose-50 text-rose-700 dark:border-rose-800/40 dark:bg-rose-950/60 dark:text-rose-300' %>"><%= animal.species == 'cat' ? '🐱 Gato' : '🐶 Cão' %></span>
-              <span class="inline-flex items-center whitespace-nowrap rounded-full border border-slate-200/60 bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:border-slate-700/60 dark:bg-slate-800 dark:text-slate-300"><%= animal.age.present? ? localized_animal_age(animal.age) : "Idade desconhecida" %></span>
+            <div class="mt-auto flex items-center gap-1.5 overflow-x-auto pt-2 whitespace-nowrap no-scrollbar">
+              <span class="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-[10px] font-semibold sm:text-[11px] <%= animal.cat? ? 'border-emerald-200/50 bg-emerald-50 text-emerald-700 dark:border-emerald-800/40 dark:bg-emerald-950/60 dark:text-emerald-300' : 'border-rose-200/50 bg-rose-50 text-rose-700 dark:border-rose-800/40 dark:bg-rose-950/60 dark:text-rose-300' %>"><%= animal.species == 'cat' ? '🐱 Gato' : '🐶 Cão' %></span>
+              <span class="inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-slate-200/60 bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-700 dark:border-slate-700/60 dark:bg-slate-800 dark:text-slate-300 sm:text-[11px]"><%= animal.age.present? ? localized_animal_age(animal.age) : "Idade desconhecida" %></span>
               <% if animal.size.present? %>
-                <span class="inline-flex items-center whitespace-nowrap rounded-full border border-slate-200/60 bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700 dark:border-slate-700/60 dark:bg-slate-800 dark:text-slate-300"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[animal.size] %></span>
+                <span class="inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-slate-200/60 bg-slate-100 px-2 py-0.5 text-[10px] font-medium text-slate-700 dark:border-slate-700/60 dark:bg-slate-800 dark:text-slate-300 sm:text-[11px]"><%= { "small" => "Pequeno", "medium" => "Médio", "large" => "Grande" }[animal.size] %></span>
               <% end %>
             </div>
           </div>
