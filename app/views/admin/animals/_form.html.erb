@@ -1,7 +1,7 @@
 <div class="max-w-4xl mx-auto px-4">
-  <div class="bg-white dark:bg-gray-800 p-6 sm:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 space-y-6">
-    <%= link_to "← Voltar ao Painel", admin_animals_path, class: "inline-flex items-center text-sm font-semibold text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white mb-4 transition-colors" %>
-    <h1 class="border-b border-gray-100 pb-5 text-2xl font-bold text-gray-900 dark:border-gray-700 dark:text-white"><%= local_assigns[:title] || "Cadastro do Pet" %></h1>
+  <div class="bg-white dark:bg-[#1E293B] p-6 sm:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700/60 space-y-6">
+    <%= link_to "← Voltar ao Painel", admin_animals_path, class: "inline-flex items-center text-sm font-semibold text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white mb-4 transition-colors" %>
+    <h1 class="border-b border-gray-100 pb-5 text-2xl font-bold text-gray-900 dark:border-gray-700/60 dark:text-white"><%= local_assigns[:title] || "Cadastro do Pet" %></h1>
 
   <%= form_with(model: [:admin, animal], local: true, class: "space-y-6") do |form| %>
   <% if animal.errors.any? %>
@@ -18,8 +18,8 @@
   <div class="space-y-5 pb-28 md:grid md:grid-cols-2 md:gap-6 md:space-y-0 md:pb-0">
     <div class="md:col-span-2">
       <%= form.label :name, "Nome do pet", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_field :name, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: Mel" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Use o nome pelo qual o pet já é chamado.</p>
+      <%= form.text_field :name, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: Mel" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Use o nome pelo qual o pet já é chamado.</p>
       <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded-r-xl my-2 text-xs text-amber-800 dark:bg-amber-900/30 dark:border-amber-500 dark:text-amber-200">
         💡 <strong>Dica de Adoção:</strong> Evite usar "Sem nome". Pets com nomes carinhosos provisórios (ex: <em>Malu</em>, <em>Amora</em>, <em>Filhotes da Pretinha</em>) recebem até 3x mais pedidos de adoção!
       </div>
@@ -32,17 +32,18 @@
           <% input_id = "animal_species_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :species, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-slate-700/70 dark:text-gray-100"><%= label %></span>
           </label>
         <% end %>
       </div>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Toque para escolher a espécie.</p>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Toque para escolher a espécie.</p>
     </div>
 
     <div>
       <%= form.label :age, "Idade", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_field :age, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: 2 anos" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Se não souber a idade exata, informe uma estimativa.</p>
+      <%= form.text_field :age, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: 2 anos" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Se não souber a idade exata, informe uma estimativa.</p>
+      <p class="mt-1 text-xs text-amber-600 dark:text-amber-400">💡 Para recém-nascidos, informe a idade aproximada em semanas/dias (ex: 2 semanas) e coloque na história a previsão de liberação para a adoção.</p>
     </div>
 
     <div>
@@ -52,7 +53,7 @@
           <% input_id = "animal_sex_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :sex, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-slate-700/70 dark:text-gray-100"><%= label %></span>
           </label>
         <% end %>
       </div>
@@ -65,7 +66,7 @@
           <% input_id = "animal_size_#{value}" %>
           <label for="<%= input_id %>" class="cursor-pointer">
             <%= form.radio_button :size, value, id: input_id, class: "peer sr-only" %>
-            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100"><%= label %></span>
+            <span class="inline-flex min-h-12 items-center justify-center rounded-full border border-gray-300 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:border-[#E60067] peer-checked:border-[#E60067] peer-checked:bg-[#E60067] peer-checked:font-bold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-[#E60067] dark:border-gray-600 dark:bg-slate-700/70 dark:text-gray-100"><%= label %></span>
           </label>
         <% end %>
       </div>
@@ -73,37 +74,37 @@
 
     <div>
       <%= form.label :status, "Situação para adoção", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.select :status, Animal.statuses.keys.map { |k| [k == "available" ? "Disponível" : (k == "in_process" ? "Em processo" : "Adotado"), k] }, { prompt: "Selecione a situação" }, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Atualize quando o processo de adoção avançar.</p>
+      <%= form.select :status, Animal.statuses.keys.map { |k| [k == "available" ? "Disponível" : (k == "in_process" ? "Em processo" : "Adotado"), k] }, { prompt: "Selecione a situação" }, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Atualize quando o processo de adoção avançar.</p>
     </div>
 
     <div>
       <%= form.label :city, "Cidade", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_field :city, value: animal.city.presence || "São Paulo", class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: São Paulo" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">A cidade padrão é São Paulo; altere se necessário.</p>
+      <%= form.text_field :city, value: animal.city.presence || "São Paulo", class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: São Paulo" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">A cidade padrão é São Paulo; altere se necessário.</p>
     </div>
 
     <div>
       <%= form.label :state, "Estado (UF)", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_field :state, value: animal.state.presence || "SP", class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: SP", maxlength: 2 %>
+      <%= form.text_field :state, value: animal.state.presence || "SP", class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Ex.: SP", maxlength: 2 %>
     </div>
 
     <div class="md:col-span-2">
       <%= form.label :temperament, "Comportamento e personalidade", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_area :temperament, rows: 3, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Conte como ele é: brincalhão, tranquilo, carinhoso e como se dá com outros animais..." %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Descreva como o pet se comporta no dia a dia.</p>
+      <%= form.text_area :temperament, rows: 3, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Conte como ele é: brincalhão, tranquilo, carinhoso e como se dá com outros animais..." %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Descreva como o pet se comporta no dia a dia.</p>
     </div>
 
     <div class="md:col-span-2">
       <%= form.label :health_status, "Saúde e cuidados", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_area :health_status, rows: 3, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Vacinas, tratamentos ou cuidados especiais" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Compartilhe informações importantes para a futura família.</p>
+      <%= form.text_area :health_status, rows: 3, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Vacinas, tratamentos ou cuidados especiais" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Compartilhe informações importantes para a futura família.</p>
     </div>
 
     <div class="md:col-span-2">
       <%= form.label :description, "História do pet", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.text_area :description, rows: 5, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Conte um pouco sobre a história do resgate, comportamento com outros animais e cuidados necessários..." %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Uma descrição acolhedora ajuda a encontrar a família certa.</p>
+      <%= form.text_area :description, rows: 5, class: "mt-2 w-full rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-700/70/50 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#E60067] focus:border-transparent transition-all py-2.5 px-3 text-sm placeholder:text-gray-400", placeholder: "Informe se os filhotes já foram desmamados, se estão vacinados/vermifugados e a data prevista para a entrega ao adotante..." %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Uma descrição acolhedora ajuda a encontrar a família certa.</p>
     </div>
 
     <div class="md:col-span-2">
@@ -127,7 +128,7 @@
       <% end %>
 
       <% if animal.photos.count < 3 %>
-        <div class="mt-2 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center transition hover:border-rose-400 dark:border-gray-600 dark:bg-gray-800/50">
+        <div class="mt-2 rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 p-6 text-center transition hover:border-rose-400 dark:border-gray-600 dark:bg-[#1E293B]/50">
           <%= form.file_field :photos, id: "animal_photos", multiple: true, required: false, accept: "image/png,image/jpeg,image/webp", class: "sr-only" %>
           <label for="animal_photos" class="flex cursor-pointer flex-col items-center rounded-xl p-2 focus-within:ring-2 focus-within:ring-rose-500">
             <svg class="mb-3 h-10 w-10 text-rose-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -135,19 +136,19 @@
               <circle cx="12" cy="12.5" r="3.5" stroke-width="1.8" />
             </svg>
             <span class="font-bold text-slate-800 dark:text-gray-100">Clique aqui para enviar até 3 fotos</span>
-            <span class="mt-1 text-sm text-gray-500 dark:text-gray-400">Prefira fotos bem iluminadas. A primeira será a capa.</span>
-            <span class="mt-1 text-xs text-gray-500 dark:text-gray-400">PNG, JPG ou WEBP, até 5 MB por foto.</span>
+            <span class="mt-1 text-sm text-gray-500 dark:text-slate-400">Prefira fotos bem iluminadas. A primeira será a capa.</span>
+            <span class="mt-1 text-xs text-gray-500 dark:text-slate-400">PNG, JPG ou WEBP, até 5 MB por foto.</span>
           </label>
         </div>
       <% else %>
-        <p class="rounded-xl bg-gray-50 p-4 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">Limite de 3 fotos atingido. Remova uma foto para adicionar outra.</p>
+        <p class="rounded-xl bg-gray-50 p-4 text-sm text-gray-600 dark:bg-[#1E293B] dark:text-slate-300">Limite de 3 fotos atingido. Remova uma foto para adicionar outra.</p>
       <% end %>
-      <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">A primeira foto da galeria será utilizada automaticamente como capa nas buscas.</p>
+      <p class="mt-3 text-sm text-gray-500 dark:text-slate-400">A primeira foto da galeria será utilizada automaticamente como capa nas buscas.</p>
     </div>
   </div>
 
-  <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-100 pt-6 dark:border-gray-700">
-    <%= link_to "Cancelar", admin_animals_path, class: "px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition-all" %>
+  <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-100 pt-6 dark:border-gray-700/60">
+    <%= link_to "Cancelar", admin_animals_path, class: "px-5 py-2.5 rounded-xl border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold hover:bg-gray-100 dark:hover:bg-slate-600 transition-all" %>
     <%= form.submit "Salvar Pet", class: "px-6 py-2.5 rounded-xl bg-[#E60067] hover:bg-[#c40057] text-white font-bold shadow-md hover:shadow-lg transition-all cursor-pointer" %>
   </div>
   <% end %>

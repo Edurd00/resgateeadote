@@ -3,10 +3,10 @@
     <%= link_to "← Voltar ao painel", admin_animals_path, class: "text-sm font-semibold text-rose-700 transition hover:text-rose-800" %>
     <p class="mt-5 text-sm font-semibold uppercase tracking-wider text-rose-500">Minha conta</p>
     <h1 class="mt-1 text-3xl font-bold text-slate-900 dark:text-gray-100">Atualizar meus dados</h1>
-    <p class="mt-2 text-slate-600 dark:text-gray-300">Altere seu e-mail ou defina uma nova senha.</p>
+    <p class="mt-2 text-slate-600 dark:text-slate-300">Altere seu e-mail ou defina uma nova senha.</p>
   </div>
 
-  <%= form_with model: @user, url: admin_profile_path, method: :patch, class: "space-y-5 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8 dark:border-gray-700 dark:bg-gray-800" do |form| %>
+  <%= form_with model: @user, url: admin_profile_path, method: :patch, class: "space-y-5 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8 dark:border-gray-700/60 dark:bg-[#1E293B]" do |form| %>
     <% if @user.errors.any? %>
       <div role="alert" class="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900 dark:border-rose-800 dark:bg-rose-950 dark:text-rose-100">
         <p class="font-semibold">Revise os dados informados:</p>
@@ -20,28 +20,28 @@
 
     <div>
       <%= form.label :email, "E-mail", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.email_field :email, required: true, autocomplete: "email", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
+      <%= form.email_field :email, required: true, autocomplete: "email", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-slate-700/70 dark:text-white" %>
     </div>
 
     <div>
       <%= form.label :phone, "WhatsApp com DDD", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.telephone_field :phone, autocomplete: "tel", placeholder: "(11) 99999-9999", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" %>
-      <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Este número receberá as mensagens dos interessados nos pets que você cadastrar.</p>
+      <%= form.telephone_field :phone, autocomplete: "tel", placeholder: "(11) 99999-9999", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-slate-700/70 dark:text-white dark:placeholder-gray-400" %>
+      <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">Este número receberá as mensagens dos interessados nos pets que você cadastrar.</p>
     </div>
 
     <div>
       <%= form.label :password, "Nova senha", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.password_field :password, autocomplete: "new-password", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
-      <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Deixe em branco para manter sua senha atual.</p>
+      <%= form.password_field :password, autocomplete: "new-password", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-slate-700/70 dark:text-white" %>
+      <p class="mt-2 text-sm text-gray-500 dark:text-slate-400">Deixe em branco para manter sua senha atual.</p>
     </div>
 
     <div>
       <%= form.label :password_confirmation, "Confirme a nova senha", class: "block text-sm font-semibold text-slate-800 dark:text-gray-100" %>
-      <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-gray-700 dark:text-white" %>
+      <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "mt-2 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-slate-900 shadow-sm focus:border-rose-500 focus:outline-none focus:ring-2 focus:ring-rose-500/30 dark:border-gray-600 dark:bg-slate-700/70 dark:text-white" %>
     </div>
 
-    <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:justify-end dark:border-gray-700">
-      <%= link_to "Cancelar", admin_animals_path, class: "inline-flex justify-center rounded-xl px-5 py-3 font-semibold text-gray-600 transition hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700" %>
+    <div class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:justify-end dark:border-gray-700/60">
+      <%= link_to "Cancelar", admin_animals_path, class: "inline-flex justify-center rounded-xl px-5 py-3 font-semibold text-gray-600 transition hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-600" %>
       <%= form.submit "Salvar alterações", class: "inline-flex cursor-pointer justify-center rounded-xl bg-[#E60067] px-6 py-3 font-bold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-4 focus:ring-rose-200" %>
     </div>
   <% end %>

@@ -1,7 +1,7 @@
 <% content_for :title, "#{@animal.name} | Resgate e Adote" %>
 
 <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500 dark:text-gray-400">
+  <nav aria-label="Breadcrumb" class="mb-6 text-sm text-gray-500 dark:text-slate-400">
     <ol class="flex flex-wrap items-center gap-2">
       <li><%= link_to "Home", root_path, class: "transition hover:text-rose-600 dark:hover:text-rose-300" %></li>
       <li aria-hidden="true">&gt;</li>
@@ -29,22 +29,22 @@
   <section class="grid grid-cols-1 gap-12 lg:grid-cols-2" aria-labelledby="animal-name">
     <div>
       <% if @animal.photos.attached? %>
-        <div class="w-full aspect-[4/5] sm:aspect-square max-h-[550px] bg-gray-100 dark:bg-gray-800/80 rounded-3xl p-2 flex items-center justify-center shadow-inner overflow-hidden">
+        <div class="w-full aspect-[4/5] sm:aspect-square max-h-[550px] bg-gray-100 dark:bg-[#1E293B]/80 rounded-3xl p-2 flex items-center justify-center shadow-inner overflow-hidden">
           <%= image_tag @animal.photos.first, alt: "Foto de #{@animal.name}", class: "w-full h-full object-contain rounded-2xl" %>
         </div>
         <% if @animal.photos.count > 1 %>
           <div class="mt-4 flex flex-wrap gap-3">
             <% @animal.photos.drop(1).first(2).each_with_index do |photo, index| %>
-              <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-xl p-1 border border-gray-200 dark:border-gray-700 cursor-pointer">
+              <div class="w-20 h-20 bg-gray-100 dark:bg-[#1E293B] rounded-xl p-1 border border-gray-200 dark:border-gray-700/60 cursor-pointer">
                 <%= image_tag photo, alt: "Foto #{index + 2} de #{@animal.name}", class: "w-full h-full object-contain rounded-lg" %>
               </div>
             <% end %>
           </div>
         <% end %>
       <% else %>
-        <div class="flex w-full aspect-[4/5] flex-col items-center justify-center gap-3 rounded-3xl bg-rose-50 text-rose-300 shadow-xl dark:bg-gray-800">
+        <div class="flex w-full aspect-[4/5] flex-col items-center justify-center gap-3 rounded-3xl bg-rose-50 text-rose-300 shadow-xl dark:bg-[#1E293B]">
           <span class="text-7xl" aria-hidden="true">🐾</span>
-          <span class="font-medium text-gray-600 dark:text-gray-300">Foto em breve</span>
+          <span class="font-medium text-gray-600 dark:text-slate-300">Foto em breve</span>
         </div>
       <% end %>
     </div>
@@ -64,57 +64,57 @@
 
       <section class="mb-8 w-full">
         <h2 class="mb-3 text-xl font-bold text-gray-800 dark:text-gray-100">A história de <%= @animal.name %></h2>
-        <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.description.presence || "Toda adoção começa com um encontro. Venha conhecer #{@animal.name} e descobrir se vocês foram feitos um para o outro." %></p>
+        <p class="text-lg leading-relaxed text-gray-700 dark:text-slate-300"><%= @animal.description.presence || "Toda adoção começa com um encontro. Venha conhecer #{@animal.name} e descobrir se vocês foram feitos um para o outro." %></p>
       </section>
 
       <% if @animal.temperament.present? %>
-        <section class="mb-8 w-full rounded-2xl bg-gray-50 p-5 dark:bg-gray-800">
+        <section class="mb-8 w-full rounded-2xl bg-gray-50 p-5 dark:bg-[#1E293B]">
           <h2 class="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">Personalidade</h2>
-          <p class="leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.temperament %></p>
+          <p class="leading-relaxed text-gray-700 dark:text-slate-300"><%= @animal.temperament %></p>
         </section>
       <% end %>
 
       <section class="mb-8 grid w-full grid-cols-1 gap-3 sm:grid-cols-3" aria-label="Uma nova história de adoção">
-        <div class="rounded-2xl bg-rose-50/70 p-4 text-center dark:bg-gray-800">
+        <div class="rounded-2xl bg-rose-50/70 p-4 text-center dark:bg-[#1E293B]">
           <span class="text-2xl" aria-hidden="true">🐾</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Um pet único</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-slate-300">Um pet único</p>
         </div>
-        <div class="rounded-2xl bg-amber-50 p-4 text-center dark:bg-gray-800">
+        <div class="rounded-2xl bg-amber-50 p-4 text-center dark:bg-[#1E293B]">
           <span class="text-2xl" aria-hidden="true">🏡</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Um novo lar</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-slate-300">Um novo lar</p>
         </div>
-        <div class="rounded-2xl bg-orange-50 p-4 text-center dark:bg-gray-800">
+        <div class="rounded-2xl bg-orange-50 p-4 text-center dark:bg-[#1E293B]">
           <span class="text-2xl" aria-hidden="true">💛</span>
-          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-gray-300">Companheirismo</p>
+          <p class="mt-2 text-sm font-semibold text-gray-600 dark:text-slate-300">Companheirismo</p>
         </div>
       </section>
 
       <% if @animal.health_status.present? %>
         <section class="mb-8 w-full rounded-2xl border border-emerald-100 bg-emerald-50 p-5 dark:border-emerald-900 dark:bg-emerald-950">
           <h2 class="font-bold text-gray-800 dark:text-gray-100">Saúde e cuidados</h2>
-          <p class="mt-2 leading-relaxed text-gray-700 dark:text-gray-300"><%= @animal.health_status %></p>
+          <p class="mt-2 leading-relaxed text-gray-700 dark:text-slate-300"><%= @animal.health_status %></p>
         </section>
       <% end %>
 
-      <div id="adocao" class="mt-auto w-full rounded-3xl bg-rose-50 p-5 sm:p-6 dark:bg-gray-800">
+      <div id="adocao" class="mt-auto w-full rounded-3xl bg-rose-50 p-5 sm:p-6 dark:bg-[#1E293B]">
         <p class="mb-2 font-semibold text-gray-800 dark:text-gray-100">Pronto para começar uma nova história?</p>
         <%= link_to whatsapp_url, target: "_blank", rel: "noopener", class: "inline-flex w-full items-center justify-center rounded-2xl bg-[#00A884] px-6 py-3.5 text-center text-lg font-bold text-white shadow-md transition-all hover:bg-[#008f6f] hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-emerald-200" do %>
           <span class="mr-2" aria-hidden="true">🐾</span>
           <%= adoption_title %>
         <% end %>
-        <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
+        <p class="mt-3 text-sm text-gray-600 dark:text-slate-300">Vamos abrir uma conversa no WhatsApp com a pessoa responsável.</p>
       </div>
 
       <section class="mt-5 w-full" aria-labelledby="compartilhar-pet">
         <h2 id="compartilhar-pet" class="mb-3 text-sm font-semibold text-gray-700 dark:text-gray-200">Aponte ou compartilhe para ajudar este pet</h2>
         <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <%= link_to "https://api.whatsapp.com/send?text=#{ERB::Util.url_encode("Olha que amor este pet para adoção no Resgate e Adote: #{animal_url(@animal)}")}", target: "_blank", rel: "noopener", class: "bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-100 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all" do %>
+          <%= link_to "https://api.whatsapp.com/send?text=#{ERB::Util.url_encode("Olha que amor este pet para adoção no Resgate e Adote: #{animal_url(@animal)}")}", target: "_blank", rel: "noopener", class: "bg-gray-100 hover:bg-gray-200 dark:bg-slate-700/70 dark:hover:bg-slate-600 text-gray-800 dark:text-gray-100 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all" do %>
             <svg aria-hidden="true" class="h-5 w-5 text-[#25D366]" viewBox="0 0 24 24" fill="currentColor">
               <path d="M20.52 3.48A11.86 11.86 0 0 0 12.07 0C5.5 0 .15 5.34.15 11.91c0 2.1.55 4.16 1.6 5.98L0 24l6.27-1.64a11.9 11.9 0 0 0 5.8 1.48h.01c6.57 0 11.92-5.34 11.92-11.91 0-3.18-1.24-6.17-3.48-8.45ZM12.08 21.8a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.72.97.99-3.62-.24-.37a9.86 9.86 0 0 1-1.52-5.28c0-5.46 4.45-9.91 9.92-9.91a9.85 9.85 0 0 1 7.02 2.91 9.85 9.85 0 0 1 2.9 7.02c0 5.46-4.45 9.91-9.92 9.91Zm5.44-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.08 4.48.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/>
             </svg>
             Compartilhar no WhatsApp
           <% end %>
-          <button type="button" onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiado!'))" class="bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-100 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
+          <button type="button" onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiado!'))" class="bg-gray-100 hover:bg-gray-200 dark:bg-slate-700/70 dark:hover:bg-slate-600 text-gray-800 dark:text-gray-100 font-semibold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all">
             <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
             </svg>
@@ -125,9 +125,9 @@
     </div>
   </section>
 
-  <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8 dark:border-gray-700 dark:bg-gray-800">
+  <section id="instrucoes-adocao" class="mt-12 rounded-3xl border border-amber-200 bg-amber-50 p-6 sm:p-8 dark:border-gray-700/60 dark:bg-[#1E293B]">
     <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Como funciona a adoção?</h2>
-    <p class="mt-3 max-w-3xl leading-relaxed text-gray-700 dark:text-gray-300">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
-    <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300 dark:border-gray-600 dark:bg-gray-700 dark:text-amber-200 dark:hover:bg-gray-600" %>
+    <p class="mt-3 max-w-3xl leading-relaxed text-gray-700 dark:text-slate-300">Entre em contato com a equipe responsável para conversar sobre a rotina, os cuidados e os próximos passos. A adoção é um compromisso para a vida toda e queremos ajudar vocês a começarem essa história com carinho.</p>
+    <%= link_to "Conversar sobre a adoção", whatsapp_url, target: "_blank", rel: "noopener", class: "mt-5 inline-flex rounded-xl border border-amber-300 bg-white px-5 py-3 font-semibold text-amber-900 transition hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-300 dark:border-gray-600 dark:bg-slate-700/70 dark:text-amber-200 dark:hover:bg-slate-600" %>
   </section>
 </main>

@@ -3,12 +3,12 @@
     <div>
       <p class="text-sm font-semibold uppercase tracking-wider text-rose-500">Painel Superadmin</p>
       <h1 class="mt-1 text-3xl font-bold text-slate-900 dark:text-gray-100">Voluntários</h1>
-      <p class="mt-2 text-slate-600 dark:text-gray-300">Gerencie as contas com acesso administrativo.</p>
+      <p class="mt-2 text-slate-600 dark:text-slate-300">Gerencie as contas com acesso administrativo.</p>
     </div>
     <%= link_to "Novo Voluntário", new_admin_user_path, class: "inline-flex items-center justify-center rounded-xl bg-[#E60067] px-5 py-3 font-semibold text-white transition hover:bg-[#c40057] focus:outline-none focus:ring-4 focus:ring-rose-200" %>
   </header>
 
-  <div class="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+  <div class="overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm dark:border-gray-700/60 dark:bg-[#1E293B]">
     <ul class="divide-y divide-slate-100 dark:divide-gray-700">
       <% @users.each do |user| %>
         <li class="flex flex-col gap-2 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
@@ -18,7 +18,7 @@
       <% end %>
     </ul>
     <% if @users.empty? %>
-        <p class="px-5 py-8 text-center text-slate-600 dark:text-gray-300">Ainda não há usuários cadastrados.</p>
+        <p class="px-5 py-8 text-center text-slate-600 dark:text-slate-300">Ainda não há usuários cadastrados.</p>
     <% end %>
   </div>
 </main>

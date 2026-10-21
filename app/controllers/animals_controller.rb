@@ -7,8 +7,9 @@ class AnimalsController < ApplicationController
     if params[:size].present? && Animal.sizes.key?(params[:size])
       @animals = @animals.where(size: params[:size])
     end
-    if params[:sex].present? && Animal.sexes.key?(params[:sex])
-      @animals = @animals.where(sex: params[:sex])
+    sex = params[:gender].presence || params[:sex]
+    if sex.present? && Animal.sexes.key?(sex)
+      @animals = @animals.where(sex: sex)
     end
   end
 
