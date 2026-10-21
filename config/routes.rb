@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   resources :animals, only: [:index, :show]
 
   namespace :admin do
-    resources :animals
-    delete "animals/:id/photos/:photo_id", to: "animals#purge_photo", as: :purge_photo
+    resources :animals do
+      delete :purge_photo, on: :member
+    end
     resources :users, only: [:index, :new, :create]
     resource :profile, only: [:edit, :update]
   end

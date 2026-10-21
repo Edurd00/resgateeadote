@@ -117,11 +117,7 @@
               <% if index.zero? %>
                 <span class="absolute left-2 top-2 rounded-md bg-rose-500 px-2 py-0.5 text-xs font-bold text-white">Capa</span>
               <% end %>
-              <%= link_to admin_purge_photo_path(animal, photo), class: "absolute right-2 top-2 rounded-full bg-red-600 p-1.5 text-white shadow transition hover:bg-red-700", aria: { label: "Excluir foto #{index + 1}" }, data: { turbo_method: :delete, turbo_confirm: "Deseja realmente remover esta foto?" } do %>
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 7h12m-10 0 .7 13h6.6L16 7M9 7V4h6v3m-5 4v5m4-5v5" />
-                </svg>
-              <% end %>
+              <%= button_to "🗑️ Remover", purge_photo_admin_animal_path(animal, photo_id: photo.id), method: :delete, class: "rounded-full bg-red-600 px-2.5 py-1.5 text-xs font-bold text-white shadow transition hover:bg-red-700", form: { class: "absolute right-2 top-2" }, aria: { label: "Remover foto #{index + 1}" }, data: { turbo_confirm: "Deseja remover esta foto?" } %>
             </div>
           <% end %>
         </div>
